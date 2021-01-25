@@ -4,6 +4,8 @@ import EatAdvisor.EatAdvisor;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Button;
@@ -53,6 +55,9 @@ public class Controller {
             } else if (nicknameField.getText().equals("")) {
                 login = false;
                 continueButton.setText("Continua senza loggarti");
+                registerText.setVisible(false);
+                confirmPasswordField.setVisible(false);
+                confirmPasswordLabel.setVisible(false);
                 anchorPane.setLeftAnchor(continueButton, 260.0);
             }
         });
@@ -72,12 +77,31 @@ public class Controller {
                             registerText.setVisible(true);
                             confirmPasswordField.setVisible(true);
                             confirmPasswordLabel.setVisible(true);
+                            continueButton.setText("Continua la registrazione");
+                            continueButton.setOnMouseClicked(event -> {
+                                if (!EatAdvisor.isRegistrato(nicknameField.getText())) {
+                                    if (passwordField.getText().equals(confirmPasswordField.getText())) {
+                                        Cliente c = new Cliente(null,null,null,null,
+                                                null, nicknameField.getText(), passwordField.getText());
+                                        registraCliente(c);
+                                    }
+                                }
+                            });
                         } else {
+                            // questo ramo esegue solo se:
+                            // - nicknameField perde il focus E
+                            // - l'utente sta cercando di loggarsi E
+                            // - l'utente risulta registrato
                             registerText.setVisible(false);
                             confirmPasswordField.setVisible(false);
                             confirmPasswordLabel.setVisible(false);
+                            continueButton.setText("Login");
                         }
                     } else {
+                        // questo ramo esegue solo se:
+                        // - nicknameField perde il focus E
+                        // - l'utente sta cercando di loggarsi E nicknameField e' vuoto, OPPURE
+                        // - l'utente non sta cercando di loggarsi
                         registerText.setVisible(false);
                         confirmPasswordField.setVisible(false);
                         confirmPasswordLabel.setVisible(false);
@@ -86,5 +110,14 @@ public class Controller {
             }
         });
 
+    }
+
+    private void registraCliente(Cliente c) {
+        try {
+            Scene s = anchorPane.getScene();
+            s.setRoot(FXMLLoader.load(getClass().getResource("MainViewCliente.fxml")));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
