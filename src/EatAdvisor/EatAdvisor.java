@@ -2,15 +2,11 @@ package EatAdvisor;
 
 import EatAdvisor.clienti.Cliente;
 import EatAdvisor.ristoratori.Ristoratore;
-import javafx.beans.property.StringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -748,6 +744,21 @@ public class EatAdvisor {
         return utenti;
     }
 
+    public static void scriviClienti(ArrayList<Cliente> clienti) {
+        try {
+            FileOutputStream fileOutput = new FileOutputStream(PATH_UTENTI);
+            ObjectOutputStream out = new ObjectOutputStream(fileOutput);
+
+            // serializzazione oggetto nel file utenti.dati
+            out.writeObject(clienti);
+
+            out.close();
+            fileOutput.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static Cliente cercaCliente(String nickname, String password) {
         ArrayList<Cliente> clienti = leggiClienti();
         for (Cliente clienteRegistrato : clienti) {
@@ -756,6 +767,53 @@ public class EatAdvisor {
             }
         }
         return null;
+    }
+
+    public static void registraCliente (Cliente c) {
+        File f = new File(PATH_UTENTI);
+
+        // crea la directory se non esiste
+        File directory = new File("data/");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        if (f.exists() && !f.isDirectory()) {
+            try {
+                // lettura arraylist utenti da utenti.dati
+                ArrayList<Cliente> clienti = leggiClienti();
+
+                // se il nickname dell'utente invocante e' gia inserito, stampa un errore e interrompe
+                // l'esecuzione del metodo
+                boolean ok = true;
+                for (Cliente clienteRegistrato : clienti) {
+                    if (c.getNickname().equals(clienteRegistrato.getNickname())) {
+                        System.out.println("E' gia' presente un ristorante con questo nome a questo indirizzo.\n");
+                        ok = false;
+                        break;
+                    }
+                }
+                if (ok) {
+                    clienti.add(c);
+                }
+
+                scriviClienti(clienti);
+                System.out.println("Dati inseriti con successo!\n");
+            } catch (Exception e) {
+                System.out.println("Dati non inseriti");
+            }
+        } else {
+            try {
+                ArrayList<Cliente> clienti = new ArrayList<Cliente>();
+                clienti.add(c);
+
+                scriviClienti(clienti);
+                System.out.println("Dati inseriti con successo!\n");
+            } catch (Exception e) {
+                System.out.println("Dati non inseriti");
+            }
+        }
+
     }
 
 }

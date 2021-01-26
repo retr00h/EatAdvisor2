@@ -80,84 +80,84 @@ public class Cliente implements Serializable {
         return password;
     }
 
-    /**
-     * Controlla che il file Utenti.dati esista. Se esiste, legge gli utenti gia' salvati e controlla
-     * che l'utente invocante non sia gia' presente.
-     * Se non lo e' lo aggiunge agli utenti gia' presenti e li serializza.
-     *
-     * Se il file non esiste, serializza i dati dell'utente.
-     */
-    private void registraCliente() {
-        String filename = "data" + File.separator + "Utenti.dati";
-        File f = new File(filename);
-
-        // crea la directory se non esiste
-        File directory = new File("data/");
-        if (!directory.exists()) {
-            directory.mkdir();
-        }
-
-        if (f.exists() && !f.isDirectory()) {
-            try {
-                // lettura arraylist utenti da utenti.dati
-                FileInputStream fileInput = new FileInputStream(filename);
-                ObjectInputStream in = new ObjectInputStream(fileInput);
-                ArrayList<Cliente> utenti = (ArrayList<Cliente>) in.readObject();
-                in.close();
-                fileInput.close();
-
-                // se il nickname dell'utente invocante e' gia inserito, stampa un errore e interrompe
-                // l'esecuzione del metodo
-                boolean ok = true;
-                for (Cliente c : utenti) {
-                    if (c.getNickname().equals(nickname)) {
-                        System.out.println("E' gia' presente un ristorante con questo nome a questo indirizzo.\n");
-                        ok = false;
-                        break;
-                    }
-                }
-
-                if (ok) {
-                    utenti.add(this);
-                }
-
-                // arraylist utenti deserializzato
-
-                FileOutputStream fileOutput = new FileOutputStream(filename);
-                ObjectOutputStream out = new ObjectOutputStream(fileOutput);
-
-                // serializzazione oggetto nel file utenti.dati
-                out.writeObject(utenti);
-
-                out.close();
-                fileOutput.close();
-
-                System.out.println("Dati inseriti con successo!\n");
-
-            } catch (Exception e) {
-                System.out.println("Dati non inseriti");
-            }
-        } else {
-            try {
-                ArrayList<Cliente> utenti = new ArrayList<Cliente>();
-                utenti.add(this);
-
-                FileOutputStream fileOutput = new FileOutputStream(filename);
-                ObjectOutputStream out = new ObjectOutputStream(fileOutput);
-
-                // serializzazione oggetto nel file utenti.dati
-                out.writeObject(utenti);
-
-                out.close();
-                fileOutput.close();
-
-                System.out.println("Dati inseriti con successo!\n");
-
-            } catch (Exception e) {
-                System.out.println("Dati non inseriti");
-            }
-        }
-    }
+//    /**
+//     * Controlla che il file Utenti.dati esista. Se esiste, legge gli utenti gia' salvati e controlla
+//     * che l'utente invocante non sia gia' presente.
+//     * Se non lo e' lo aggiunge agli utenti gia' presenti e li serializza.
+//     *
+//     * Se il file non esiste, serializza i dati dell'utente.
+//     */
+//    private void registraCliente() {
+//        String filename = "data" + File.separator + "Utenti.dati";
+//        File f = new File(filename);
+//
+//        // crea la directory se non esiste
+//        File directory = new File("data/");
+//        if (!directory.exists()) {
+//            directory.mkdir();
+//        }
+//
+//        if (f.exists() && !f.isDirectory()) {
+//            try {
+//                // lettura arraylist utenti da utenti.dati
+//                FileInputStream fileInput = new FileInputStream(filename);
+//                ObjectInputStream in = new ObjectInputStream(fileInput);
+//                ArrayList<Cliente> utenti = (ArrayList<Cliente>) in.readObject();
+//                in.close();
+//                fileInput.close();
+//
+//                // se il nickname dell'utente invocante e' gia inserito, stampa un errore e interrompe
+//                // l'esecuzione del metodo
+//                boolean ok = true;
+//                for (Cliente c : utenti) {
+//                    if (c.getNickname().equals(nickname)) {
+//                        System.out.println("E' gia' presente un ristorante con questo nome a questo indirizzo.\n");
+//                        ok = false;
+//                        break;
+//                    }
+//                }
+//
+//                if (ok) {
+//                    utenti.add(this);
+//                }
+//
+//                // arraylist utenti deserializzato
+//
+//                FileOutputStream fileOutput = new FileOutputStream(filename);
+//                ObjectOutputStream out = new ObjectOutputStream(fileOutput);
+//
+//                // serializzazione oggetto nel file utenti.dati
+//                out.writeObject(utenti);
+//
+//                out.close();
+//                fileOutput.close();
+//
+//                System.out.println("Dati inseriti con successo!\n");
+//
+//            } catch (Exception e) {
+//                System.out.println("Dati non inseriti");
+//            }
+//        } else {
+//            try {
+//                ArrayList<Cliente> utenti = new ArrayList<Cliente>();
+//                utenti.add(this);
+//
+//                FileOutputStream fileOutput = new FileOutputStream(filename);
+//                ObjectOutputStream out = new ObjectOutputStream(fileOutput);
+//
+//                // serializzazione oggetto nel file utenti.dati
+//                out.writeObject(utenti);
+//
+//                out.close();
+//                fileOutput.close();
+//
+//                System.out.println("Dati inseriti con successo!\n");
+//
+//            } catch (Exception e) {
+//                System.out.println("Dati non inseriti");
+//            }
+//        }
+//    }
 
 //    /**
 //     * Metodo statico che visualizza il menu per l'utente non autenticato.

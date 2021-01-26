@@ -63,7 +63,7 @@ public class ViewRegistrazioneController {
 
     public void initialize() {
         textFieldNome.setOnKeyReleased(event -> {
-            nomeOkay = EatAdvisor.alert(labelNome, EatAdvisor.validate(textFieldNome.getText(), 2));
+            nomeOkay = EatAdvisor.alert(labelNome, EatAdvisor.validate(textFieldNome.getText().toLowerCase(), 2));
             checkOkay();
         });
 //        textFieldNome.focusedProperty().addListener(new ChangeListener<Boolean>()
@@ -78,7 +78,7 @@ public class ViewRegistrazioneController {
 //        });
 
         textFieldCognome.setOnKeyReleased(event -> {
-            cognomeOkay = EatAdvisor.alert(labelCognome, EatAdvisor.validate(textFieldCognome.getText(), 12));
+            cognomeOkay = EatAdvisor.alert(labelCognome, EatAdvisor.validate(textFieldCognome.getText().toLowerCase(), 12));
             checkOkay();
         });
 
@@ -94,7 +94,7 @@ public class ViewRegistrazioneController {
 //        });
 
         textFieldComune.setOnKeyReleased(event -> {
-            comuneOkay = EatAdvisor.alert(labelComune, EatAdvisor.validate(textFieldComune.getText(), 6));
+            comuneOkay = EatAdvisor.alert(labelComune, EatAdvisor.validate(textFieldComune.getText().toLowerCase(), 6));
             checkOkay();
         });
 
@@ -110,7 +110,7 @@ public class ViewRegistrazioneController {
 //        });
 
         textFieldProvincia.setOnKeyReleased(event -> {
-            provinciaOkay = EatAdvisor.alert(labelProvincia, EatAdvisor.validate(textFieldProvincia.getText(), 7));
+            provinciaOkay = EatAdvisor.alert(labelProvincia, EatAdvisor.validate(textFieldProvincia.getText().toUpperCase(), 7));
             checkOkay();
         });
 
@@ -126,7 +126,7 @@ public class ViewRegistrazioneController {
 //        });
 
         textFieldEmail.setOnKeyReleased(event -> {
-            emailOkay = EatAdvisor.alert(labelEmail, EatAdvisor.validate(textFieldEmail.getText(), 13));
+            emailOkay = EatAdvisor.alert(labelEmail, EatAdvisor.validate(textFieldEmail.getText().toLowerCase(), 13));
             checkOkay();
         });
 
@@ -147,17 +147,20 @@ public class ViewRegistrazioneController {
         if (b) {
             registerButton.setDisable(false);
             registerButton.setOnMouseClicked(event -> {
-                cliente.setNome(textFieldNome.getText());
-                cliente.setCognome(textFieldCognome.getText());
-                cliente.setComune(textFieldComune.getText());
-                cliente.setProvincia(textFieldProvincia.getText());
-                cliente.setEmail(textFieldEmail.getText());
+                cliente.setNome(textFieldNome.getText().toLowerCase());
+                cliente.setCognome(textFieldCognome.getText().toLowerCase());
+                cliente.setComune(textFieldComune.getText().toLowerCase());
+                cliente.setProvincia(textFieldProvincia.getText().toUpperCase());
+                cliente.setEmail(textFieldEmail.getText().toLowerCase());
+                EatAdvisor.registraCliente(cliente);
+
                 try {
                     Stage stage = (Stage) anchorPane.getScene().getWindow();
-                    FXMLLoader loader = new FXMLLoader();
-                    Parent newRoot = loader.load(getClass().getResource("LoggedUserView.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedUserView.fxml"));
+                    Parent newRoot = loader.load();
                     LoggedUserViewController loggedUserViewController = loader.getController();
                     loggedUserViewController.setUser(cliente);
+
                     Scene newScene = new Scene(newRoot);
                     stage.setScene(newScene);
                     stage.setMinWidth(600);

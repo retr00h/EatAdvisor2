@@ -20,6 +20,6 @@
       <Label fx:id="labelComune" layoutX="130.0" layoutY="220.0" text="Comune di residenza" />
       <Label fx:id="labelProvincia" layoutX="192.0" layoutY="255.0" text="Provincia" />
       <Label fx:id="labelEmail" layoutX="164.0" layoutY="289.0" text="Indirizzo email" />
-      <Button fx:id="registerButton" layoutX="196.0" layoutY="336.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="208.0" text="Registrati" />
+      <Button fx:id="registerButton" disable="true" layoutX="196.0" layoutY="336.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="208.0" text="Registrati" />
    </children>
 </AnchorPane>
