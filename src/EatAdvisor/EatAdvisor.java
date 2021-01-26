@@ -2,6 +2,10 @@ package EatAdvisor;
 
 import EatAdvisor.clienti.Cliente;
 import EatAdvisor.ristoratori.Ristoratore;
+import javafx.beans.property.StringProperty;
+import javafx.scene.control.Label;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,6 +36,31 @@ public class EatAdvisor {
         }
     }
 
+    public static boolean alert(Label l, boolean okay) {
+        if (okay) {
+            l.setTextFill(Paint.valueOf("000000"));
+            return true;
+        } else {
+            l.setTextFill(Paint.valueOf("FF0000"));
+            return false;
+        }
+    }
+
+    public static void alert(Label l, Text text, boolean okay) {
+        if (okay) {
+            text.setVisible(true);
+        } else {
+            text.setVisible(false);
+        }
+        alert(l, okay);
+    }
+
+    public static void login (Cliente c) {
+        if (cercaCliente(c.getNickname(), c.getPassword()) != null) {
+
+        }
+    }
+
     /**
      * Per op 0, 1 e 16 controlla direttamente se s e' valida.
      * Per tutti gli altri op ammessi confronta s con una regex e ne ritorna il risultato boolean.
@@ -41,7 +70,7 @@ public class EatAdvisor {
      * @param  op tipo di stringa
      * @return      valore boolean che rappresenta la validita' della stringa s
      */
-    private static boolean validate(String s, int op) {
+    public static boolean validate(String s, int op) {
         /* per ogni caso possibile di input controlla che sia valido e ritorna il conseguente valore booleano
             selezioneRistorante 0
             selezioneCliente    1
@@ -717,6 +746,16 @@ public class EatAdvisor {
             System.out.println("Non ci sono utenti registrati.");
         }
         return utenti;
+    }
+
+    public static Cliente cercaCliente(String nickname, String password) {
+        ArrayList<Cliente> clienti = leggiClienti();
+        for (Cliente clienteRegistrato : clienti) {
+            if (nickname.equals(clienteRegistrato.getNickname()) && password.equals(clienteRegistrato.getPassword())) {
+                return clienteRegistrato;
+            }
+        }
+        return null;
     }
 
 }

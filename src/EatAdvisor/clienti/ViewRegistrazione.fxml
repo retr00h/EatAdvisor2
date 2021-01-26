@@ -4,21 +4,22 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EatAdvisor.clienti.ViewRegistrazione">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EatAdvisor.clienti.ViewRegistrazioneController">
    <children>
       <Text layoutX="199.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EatAdvisor - Clienti&#10;Registrazione" textAlignment="CENTER">
          <font>
             <Font size="24.0" />
          </font></Text>
-      <TextField layoutX="252.0" layoutY="146.0" />
-      <TextField layoutX="252.0" layoutY="181.0" />
-      <TextField layoutX="252.0" layoutY="216.0" />
-      <TextField layoutX="252.0" layoutY="251.0" />
-      <TextField layoutX="252.0" layoutY="285.0" />
-      <Label layoutX="209.0" layoutY="150.0" text="Nome" />
-      <Label layoutX="190.0" layoutY="185.0" text="Cognome" />
-      <Label layoutX="130.0" layoutY="220.0" text="Comune di residenza" />
-      <Label layoutX="192.0" layoutY="255.0" text="Provincia" />
-      <Label layoutX="164.0" layoutY="289.0" text="Indirizzo email" />
+      <TextField fx:id="textFieldNome" layoutX="252.0" layoutY="146.0" />
+      <TextField fx:id="textFieldCognome" layoutX="252.0" layoutY="181.0" />
+      <TextField fx:id="textFieldComune" layoutX="252.0" layoutY="216.0" />
+      <TextField fx:id="textFieldProvincia" layoutX="252.0" layoutY="251.0" />
+      <TextField fx:id="textFieldEmail" layoutX="252.0" layoutY="285.0" />
+      <Label fx:id="labelNome" layoutX="209.0" layoutY="150.0" text="Nome" />
+      <Label fx:id="labelCognome" layoutX="190.0" layoutY="185.0" text="Cognome" />
+      <Label fx:id="labelComune" layoutX="130.0" layoutY="220.0" text="Comune di residenza" />
+      <Label fx:id="labelProvincia" layoutX="192.0" layoutY="255.0" text="Provincia" />
+      <Label fx:id="labelEmail" layoutX="164.0" layoutY="289.0" text="Indirizzo email" />
+      <Button fx:id="registerButton" layoutX="196.0" layoutY="336.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="208.0" text="Registrati" />
    </children>
 </AnchorPane>

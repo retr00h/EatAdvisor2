@@ -13,12 +13,12 @@
       </Text>
       <Label layoutX="198.0" layoutY="204.0" text="Nickname" />
       <Label layoutX="200.0" layoutY="242.0" text="Password" />
-      <PasswordField fx:id="passwordField" layoutX="257.0" layoutY="238.0" />
       <TextField fx:id="nicknameField" layoutX="257.0" layoutY="200.0" />
-      <Label fx:id="continueLabel" layoutX="199.0" layoutY="324.0" text="oppure" />
-      <Button fx:id="continueButton" layoutX="260.0" layoutY="320.0" mnemonicParsing="false" text="Continua senza loggarti" AnchorPane.rightAnchor="198.0" />
-      <Text fx:id="registerText" fill="RED" layoutX="180.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nickname non trovato.&#10;Se sei un utente registrato,&#10;controlla di aver inserito il nickname corretto.&#10;Se desideri registrarti, completa il form" visible="false" />
+      <PasswordField fx:id="passwordField" layoutX="257.0" layoutY="238.0" />
       <PasswordField fx:id="confirmPasswordField" layoutX="257.0" layoutY="277.0" visible="false" />
+      <Button fx:id="continueButton" layoutX="260.0" layoutY="320.0" mnemonicParsing="false" text="Continua senza loggarti" AnchorPane.rightAnchor="198.0" />
+      <Label fx:id="continueLabel" layoutX="199.0" layoutY="324.0" text="oppure" />
+      <Text fx:id="registerText" fill="RED" layoutX="180.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nickname non trovato.&#10;Se sei un utente registrato,&#10;controlla di aver inserito il nickname corretto.&#10;Se desideri registrarti, completa il form" visible="false" />
       <Label fx:id="confirmPasswordLabel" layoutX="146.0" layoutY="281.0" text="Conferma password" visible="false" />
    </children>
 </AnchorPane>

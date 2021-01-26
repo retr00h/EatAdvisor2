@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EatAdvisor.clienti.LoggedUserViewController">
+   <children>
+      <Text layoutX="270.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Benvenuto!" />
+   </children>
+</AnchorPane>

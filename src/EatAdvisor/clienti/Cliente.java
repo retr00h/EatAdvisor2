@@ -46,6 +46,26 @@ public class Cliente implements Serializable {
         this.password = password;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
+
+    public void setComune(String comune) {
+        this.comune = comune;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     /**
      * @return nickname dell'utente
      */
