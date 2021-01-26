@@ -5,6 +5,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
@@ -12,9 +13,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
-
-public class Controller {
+public class MainViewController {
 
     @FXML
     private AnchorPane anchorPane;
@@ -42,7 +43,7 @@ public class Controller {
 
     private boolean login = false;
 
-    public Controller () {
+    public MainViewController() {
 
     }
 
@@ -114,8 +115,13 @@ public class Controller {
 
     private void registraCliente(Cliente c) {
         try {
-            Scene s = anchorPane.getScene();
-            s.setRoot(FXMLLoader.load(getClass().getResource("MainViewCliente.fxml")));
+            Stage stage = (Stage) anchorPane.getScene().getWindow();
+            Parent newRoot = FXMLLoader.load(getClass().getResource("ViewRegistrazione.fxml"));
+            Scene newScene = new Scene(newRoot);
+            stage.setScene(newScene);
+            stage.setMinWidth(600);
+            stage.setMinHeight(400);
+            stage.setResizable(false);
         } catch (Exception e) {
             e.printStackTrace();
         }
