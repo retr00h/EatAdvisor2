@@ -13,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class MainViewController {
+public class MainViewClienteController {
 
     @FXML
     private AnchorPane anchorPane;
@@ -42,54 +42,27 @@ public class MainViewController {
     @FXML
     private Text registerText;
 
-    public MainViewController() {
+    public MainViewClienteController() {
 
     }
 
     public void initialize() {
-        loginButton.setOnMouseClicked(event -> login());
+        loginButton.setOnMouseClicked(event -> login(true));
         continueButton.setOnMouseClicked(event -> {
-            notLoggedUser();
+            login(false);
         });
 
         nicknameField.setOnKeyReleased(event -> {
             if (!nicknameField.getText().equals("")) {
                 if (EatAdvisor.validate(nicknameField.getText(), 14)) {
                     continueButton.setVisible(false);
-//                    anchorPane.setLeftAnchor(continueButton, 199.0);
                     continueLabel.setVisible(false);
                     if (EatAdvisor.isRegistrato(nicknameField.getText())) {
                         registerText.setVisible(false);
                         confirmPasswordField.setVisible(false);
                         confirmPasswordLabel.setVisible(false);
-//                        continueButton.setText("Login");
                         loginButton.setDisable(false);
-                        login();
-//                        if (checkOkay(nicknameField.getText(), passwordField.getText())) {
-//                            continueButton.setDisable(false);
-//                            continueButton.setOnMouseClicked(event1 -> {
-//                                try {
-//                                    Stage stage = (Stage) anchorPane.getScene().getWindow();
-//                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedUserView.fxml"));
-//                                    Parent newRoot = loader.load();
-//
-//                                    LoggedUserViewController loggedUserViewController = loader.getController();
-//                                    loggedUserViewController.setUser(EatAdvisor.cercaCliente(
-//                                            nicknameField.getText(), passwordField.getText()));
-//
-//                                    Scene newScene = new Scene(newRoot);
-//                                    stage.setScene(newScene);
-//                                    stage.setMinWidth(600);
-//                                    stage.setMinHeight(400);
-//                                    stage.setResizable(false);
-//                                } catch (Exception e) {
-//                                    e.printStackTrace();
-//                                }
-//                            });
-//                        } else {
-//                            continueButton.setDisable(true);
-//                            continueLabel.setVisible(false);
-//                        }
+                        login(true);
                     } else {
                         loginButton.setDisable(true);
                         registerText.setVisible(true);
@@ -114,7 +87,7 @@ public class MainViewController {
         passwordField.setOnKeyReleased(event -> {
             if (checkOkay(nicknameField.getText(), passwordField.getText())) {
                 continueButton.setDisable(false);
-                login();
+                login(true);
             }
         });
 
@@ -148,31 +121,47 @@ public class MainViewController {
         }
     }
 
-    private void login() {
-        if (checkOkay(nicknameField.getText(), passwordField.getText())) {
-            continueButton.setDisable(false);
-            continueButton.setOnMouseClicked(event1 -> {
-                try {
-                    Stage stage = (Stage) anchorPane.getScene().getWindow();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedUserView.fxml"));
-                    Parent newRoot = loader.load();
+    private void login(boolean haveToLogin) {
+        if (haveToLogin) {
+            if (checkOkay(nicknameField.getText(), passwordField.getText())) {
+                continueButton.setDisable(false);
+                continueButton.setOnMouseClicked(event1 -> {
+                    try {
+                        Stage stage = (Stage) anchorPane.getScene().getWindow();
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedUserView.fxml"));
+                        Parent newRoot = loader.load();
+                        LoggedUserViewController loggedUserViewController = loader.getController();
+                        loggedUserViewController.setUser(EatAdvisor.cercaCliente(
+                                nicknameField.getText(), passwordField.getText()));
 
-                    LoggedUserViewController loggedUserViewController = loader.getController();
-                    loggedUserViewController.setUser(EatAdvisor.cercaCliente(
-                            nicknameField.getText(), passwordField.getText()));
-
-                    Scene newScene = new Scene(newRoot);
-                    stage.setScene(newScene);
-                    stage.setMinWidth(600);
-                    stage.setMinHeight(400);
-                    stage.setResizable(false);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
+                        Scene newScene = new Scene(newRoot);
+                        stage.setScene(newScene);
+                        stage.setMinWidth(600);
+                        stage.setMinHeight(400);
+                        stage.setResizable(false);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+            } else {
+                continueButton.setDisable(true);
+                continueLabel.setVisible(false);
+            }
         } else {
-            continueButton.setDisable(true);
-            continueLabel.setVisible(false);
+            try {
+                Stage stage = (Stage) anchorPane.getScene().getWindow();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedUserView.fxml"));
+                Parent newRoot = loader.load();
+                LoggedUserViewController loggedUserViewController = loader.getController();
+                loggedUserViewController.setUser(null);
+                Scene newScene = new Scene(newRoot);
+                stage.setScene(newScene);
+                stage.setMinWidth(600);
+                stage.setMinHeight(400);
+                stage.setResizable(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

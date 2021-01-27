@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EatAdvisor.ristoratori.ViewRistoratoreController">
+   <children>
+      <Text layoutX="178.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EatAdvisor - Ristoratori">
+         <font>
+            <Font size="24.0" />
+         </font></Text>
+      <Label fx:id="labelNomeRistorante" layoutX="13.0" layoutY="162.0" text="Nome ristorante" />
+      <TextField fx:id="textFieldNomeRistorante" layoutX="104.0" layoutY="158.0" />
+      <ComboBox fx:id="comboBoxTipoIndirizzo" layoutX="360.0" layoutY="158.0" prefWidth="150.0">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="Corso" />
+               <String fx:value="Largo" />
+               <String fx:value="Lungolago" />
+               <String fx:value="Lungomare" />
+               <String fx:value="Piazza" />
+               <String fx:value="Piazzale" />
+               <String fx:value="Rotonda" />
+               <String fx:value="Via" />
+               <String fx:value="Viale" />
+               <String fx:value="Vicoletto" />
+               <String fx:value="Vicolo" />
+            </FXCollections>
+         </items>
+      </ComboBox>
+      <Label fx:id="labelTipoIndirizzo" layoutX="515.0" layoutY="162.0" text="Tipo indirizzo" />
+      <Label fx:id="labelNomeIndirizzo" layoutX="17.0" layoutY="197.0" text="Nome indirizzo" />
+      <TextField fx:id="textFieldNomeIndirizzo" layoutX="104.0" layoutY="193.0" />
+      <TextField fx:id="textFieldCivico" layoutX="360.0" layoutY="194.0" />
+      <Label fx:id="labelCivico" layoutX="516.0" layoutY="198.0" text="Civico" />
+      <Label fx:id="labelComune" layoutX="53.0" layoutY="233.0" text="Comune" />
+      <TextField fx:id="textFieldComune" layoutX="104.0" layoutY="229.0" />
+      <TextField fx:id="textFieldProvincia" layoutX="360.0" layoutY="229.0" />
+      <Label fx:id="labelProvincia" layoutX="516.0" layoutY="233.0" text="Provincia" />
+      <Label fx:id="labelCap" layoutX="76.0" layoutY="268.0" text="CAP" />
+      <TextField fx:id="textFieldCap" layoutX="104.0" layoutY="264.0" />
+      <TextField fx:id="textFieldTelefono" layoutX="360.0" layoutY="264.0" />
+      <Label fx:id="labelTelefono" layoutX="516.0" layoutY="268.0" text="Telefono" />
+      <Label fx:id="labelUrl" layoutX="78.0" layoutY="303.0" text="URL" />
+      <TextField fx:id="textFieldUrl" layoutX="104.0" layoutY="299.0" />
+      <ComboBox fx:id="comboBoxTipologia" layoutX="360.0" layoutY="299.0" prefWidth="150.0">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="Italiano" />
+               <String fx:value="Etnico" />
+               <String fx:value="Fusion" />
+            </FXCollections>
+         </items>
+      </ComboBox>
+      <Label fx:id="labelTipologia" layoutX="516.0" layoutY="303.0" text="Tipologia" />
+      <Text fx:id="errorText" fill="RED" layoutX="178.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="244.19530928134918" />
+      <Button fx:id="registerButton" disable="true" layoutX="228.0" layoutY="343.0" mnemonicParsing="false" text="Registra il tuo ristorante" />
+   </children>
+</AnchorPane>

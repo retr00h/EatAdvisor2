@@ -110,21 +110,20 @@ public class EatAdvisor {
             case 0: return s.equals("0") || s.equals("1");
             case 1: return s.equals("0") || s.equals("1") || s.equals("2") || s.equals("3");
             case 2: return s.matches(regexNome);
-            case 3: return s.matches(regexTipoIndirizzo);
-            case 4: return s.matches(regexNomeIndirizzo);
+            case 3: return s.toLowerCase().matches(regexTipoIndirizzo);
+            case 4: return s.toLowerCase().matches(regexNomeIndirizzo);
             case 5: return s.matches(regexCivico);
-            case 6: return s.matches(regexComune);
+            case 6: return s.toLowerCase().matches(regexComune);
             case 7:
-                return s.matches(regexProvincia);
+                return s.toUpperCase().matches(regexProvincia);
             case 8:
                 return s.matches(regexCap);
             case 9:
                 return s.matches(regexTelefono);
             case 10:
-                return s.matches(regexUrl);
+                return s.length() == 0 || s.toLowerCase().matches(regexUrl);
             case 11:
                 return s.matches(regexTipologiaRistorante);
-
             case 12:
                 return s.matches(regexCognome);
             case 13:
