@@ -57,7 +57,7 @@ public class MainViewClienteController {
                 if (EatAdvisor.validate(nicknameField.getText(), 14)) {
                     continueButton.setVisible(false);
                     continueLabel.setVisible(false);
-                    if (EatAdvisor.isRegistrato(nicknameField.getText())) {
+                    if (EatAdvisor.isRegistrato(nicknameField.getText(), 1)) {
                         registerText.setVisible(false);
                         confirmPasswordField.setVisible(false);
                         confirmPasswordLabel.setVisible(false);

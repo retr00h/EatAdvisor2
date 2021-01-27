@@ -56,7 +56,7 @@
          </items>
       </ComboBox>
       <Label fx:id="labelTipologia" layoutX="516.0" layoutY="303.0" text="Tipologia" />
-      <Text fx:id="errorText" fill="RED" layoutX="178.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="244.19530928134918" />
+      <Text fx:id="errorText" fill="RED" layoutX="178.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Esiste gia' un ristorante con questo nome" textAlignment="CENTER" visible="false" wrappingWidth="244.19530928134918" />
       <Button fx:id="registerButton" disable="true" layoutX="228.0" layoutY="343.0" mnemonicParsing="false" text="Registra il tuo ristorante" />
    </children>
 </AnchorPane>

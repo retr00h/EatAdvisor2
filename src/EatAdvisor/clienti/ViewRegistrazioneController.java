@@ -152,7 +152,7 @@ public class ViewRegistrazioneController {
                 cliente.setComune(textFieldComune.getText().toLowerCase());
                 cliente.setProvincia(textFieldProvincia.getText().toUpperCase());
                 cliente.setEmail(textFieldEmail.getText().toLowerCase());
-                EatAdvisor.registraCliente(cliente);
+                EatAdvisor.registra(cliente, 1);
 
                 try {
                     Stage stage = (Stage) anchorPane.getScene().getWindow();

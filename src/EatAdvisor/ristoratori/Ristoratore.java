@@ -156,86 +156,86 @@ public class Ristoratore extends EatAdvisor implements java.io.Serializable {
         }
     }
 
-    /**
-     * Controlla che il file EatAdvisor.dati esista. Se esiste, legge gli i ristoranti gia' salvati e controlla
-     * che il ristorante invocante non sia gia' presente.
-     * Se non lo e' lo aggiunge ai ristoranti gia' presenti e li serializza.
-     * <p>
-     * Se il file non esiste, serializza i dati del ristorante.
-     */
-    private void registraRistorante() {
-        String filename = "data" + File.separator + "EatAdvisor.dati";
-        File f = new File(filename);
-
-        File directory = new File("data/");
-        if (!directory.exists()) {
-            directory.mkdir();
-        }
-
-        if (f.exists() && !f.isDirectory()) {
-            try {
-                // lettura arraylist ristoratori da EatAdvisor.dati
-                FileInputStream fileInput = new FileInputStream(filename);
-                ObjectInputStream in = new ObjectInputStream(fileInput);
-
-                ArrayList<Ristoratore> ristoratori = (ArrayList<Ristoratore>) in.readObject();
-                in.close();
-                fileInput.close();
-
-
-                // se il nome del ristorante invocante e' gia inserito e se l'indirizzo e' lo stesso
-                // stampa un errore e interrompe il ciclo
-                boolean ok = true;
-                for (Ristoratore r : ristoratori) {
-                    if (r.getNome().equals(nome) && r.getTipoIndirizzo().equals(tipoIndirizzo) && r.getNomeIndirizzo().equals(nomeIndirizzo) &&
-                            r.getCivico().equals(civico) && r.getComune().equals(comune)) {
-                        System.out.println("E' gia' presente un ristorante con questo nome a questo indirizzo.\n");
-                        ok = false;
-                        break;
-                    }
-                }
-
-                if (ok) {
-                    ristoratori.add(this);
-                }
-
-                sortRistorantiNome(ristoratori);
-
-                FileOutputStream fileOutput = new FileOutputStream(filename);
-                ObjectOutputStream out = new ObjectOutputStream(fileOutput);
-
-                // serializzazione oggetto nel file EatAdvisor.dati
-                out.writeObject(ristoratori);
-
-                out.close();
-                fileOutput.close();
-
-                System.out.println("Dati inseriti con successo!\n");
-
-            } catch (IOException | ClassNotFoundException e) {
-                System.out.println("Dati non inseriti");
-            }
-        } else {
-            try {
-                ArrayList<Ristoratore> ristoratori = new ArrayList<Ristoratore>();
-                ristoratori.add(this);
-
-                FileOutputStream fileOutput = new FileOutputStream(filename);
-                ObjectOutputStream out = new ObjectOutputStream(fileOutput);
-
-                // serializzazione oggetto nel file EatAdvisor.dati
-                out.writeObject(ristoratori);
-
-                out.close();
-                fileOutput.close();
-
-                System.out.println("Dati inseriti con successo!\n");
-
-            } catch (Exception e) {
-                System.out.println("Dati non inseriti");
-            }
-        }
-    }
+//    /**
+//     * Controlla che il file EatAdvisor.dati esista. Se esiste, legge gli i ristoranti gia' salvati e controlla
+//     * che il ristorante invocante non sia gia' presente.
+//     * Se non lo e' lo aggiunge ai ristoranti gia' presenti e li serializza.
+//     * <p>
+//     * Se il file non esiste, serializza i dati del ristorante.
+//     */
+//    private void registraRistorante() {
+//        String filename = "data" + File.separator + "EatAdvisor.dati";
+//        File f = new File(filename);
+//
+//        File directory = new File("data/");
+//        if (!directory.exists()) {
+//            directory.mkdir();
+//        }
+//
+//        if (f.exists() && !f.isDirectory()) {
+//            try {
+//                // lettura arraylist ristoratori da EatAdvisor.dati
+//                FileInputStream fileInput = new FileInputStream(filename);
+//                ObjectInputStream in = new ObjectInputStream(fileInput);
+//
+//                ArrayList<Ristoratore> ristoratori = (ArrayList<Ristoratore>) in.readObject();
+//                in.close();
+//                fileInput.close();
+//
+//
+//                // se il nome del ristorante invocante e' gia inserito e se l'indirizzo e' lo stesso
+//                // stampa un errore e interrompe il ciclo
+//                boolean ok = true;
+//                for (Ristoratore r : ristoratori) {
+//                    if (r.getNome().equals(nome) && r.getTipoIndirizzo().equals(tipoIndirizzo) && r.getNomeIndirizzo().equals(nomeIndirizzo) &&
+//                            r.getCivico().equals(civico) && r.getComune().equals(comune)) {
+//                        System.out.println("E' gia' presente un ristorante con questo nome a questo indirizzo.\n");
+//                        ok = false;
+//                        break;
+//                    }
+//                }
+//
+//                if (ok) {
+//                    ristoratori.add(this);
+//                }
+//
+//                sortRistorantiNome(ristoratori);
+//
+//                FileOutputStream fileOutput = new FileOutputStream(filename);
+//                ObjectOutputStream out = new ObjectOutputStream(fileOutput);
+//
+//                // serializzazione oggetto nel file EatAdvisor.dati
+//                out.writeObject(ristoratori);
+//
+//                out.close();
+//                fileOutput.close();
+//
+//                System.out.println("Dati inseriti con successo!\n");
+//
+//            } catch (IOException | ClassNotFoundException e) {
+//                System.out.println("Dati non inseriti");
+//            }
+//        } else {
+//            try {
+//                ArrayList<Ristoratore> ristoratori = new ArrayList<Ristoratore>();
+//                ristoratori.add(this);
+//
+//                FileOutputStream fileOutput = new FileOutputStream(filename);
+//                ObjectOutputStream out = new ObjectOutputStream(fileOutput);
+//
+//                // serializzazione oggetto nel file EatAdvisor.dati
+//                out.writeObject(ristoratori);
+//
+//                out.close();
+//                fileOutput.close();
+//
+//                System.out.println("Dati inseriti con successo!\n");
+//
+//            } catch (Exception e) {
+//                System.out.println("Dati non inseriti");
+//            }
+//        }
+//    }
 
     /**
      * Controlla che il file EatAdvisor.dati esista.

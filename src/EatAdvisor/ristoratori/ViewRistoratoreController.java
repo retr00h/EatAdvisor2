@@ -2,10 +2,7 @@ package EatAdvisor.ristoratori;
 
 import EatAdvisor.EatAdvisor;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
 public class ViewRistoratoreController {
@@ -68,6 +65,9 @@ public class ViewRistoratoreController {
     @FXML
     private Button registerButton;
 
+    @FXML
+    private Text errorText;
+
     private Boolean nomeOk = false;
     private Boolean tipoIndirizzoOk = false;
     private Boolean indirizzoOk = false;
@@ -86,9 +86,15 @@ public class ViewRistoratoreController {
 
     public void initialize() {
         textFieldNomeRistorante.setOnKeyReleased(event -> {
-            // TODO: verificare che il ristoratore non sia già registrato
-            nomeOk = handle(textFieldNomeRistorante, labelNomeRistorante, 2);
-            checkOkay();
+            if (EatAdvisor.isRegistrato(textFieldNomeRistorante.getText(), 2)) {
+                EatAdvisor.alert(labelNomeRistorante, false);
+                errorText.setVisible(true);
+            } else {
+                EatAdvisor.alert(labelNomeRistorante, true);
+                errorText.setVisible(false);
+                nomeOk = handle(textFieldNomeRistorante, labelNomeRistorante, 2);
+                checkOkay();
+            }
         });
 
         comboBoxTipoIndirizzo.setOnAction(event -> {
@@ -144,9 +150,43 @@ public class ViewRistoratoreController {
                     textFieldCivico.getText(), textFieldComune.getText(), textFieldProvincia.getText(),
                     textFieldCap.getText(), textFieldTelefono.getText(), textFieldUrl.getText(),
                     comboBoxTipologia.getValue());
-
-            // TODO: registrare il ristoratore appena creato
+            EatAdvisor.registra(ristoratore, 2);
+            tabulaRasa();
         });
+    }
+
+    private void tabulaRasa() {
+        nomeOk = false;
+        tipoIndirizzoOk = false;
+        indirizzoOk = false;
+        civicoOk = false;
+        comuneOk = false;
+        provinciaOk = false;
+        capOk = false;
+        telefonoOk = false;
+        urlOk = true;
+        tipologiaOk = false;
+
+        registerButton.setDisable(true);
+        errorText.setVisible(false);
+
+        textFieldNomeRistorante.setText("");
+        comboBoxTipoIndirizzo.getSelectionModel().clearSelection();
+        textFieldNomeIndirizzo.setText("");
+        textFieldCivico.setText("");
+        textFieldComune.setText("");
+        textFieldProvincia.setText("");
+        textFieldCap.setText("");
+        textFieldTelefono.setText("");
+        textFieldUrl.setText("");
+        comboBoxTipologia.getSelectionModel().clearSelection();
+
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Registrazione confermata!");
+        alert.setHeaderText("");
+        alert.setContentText("Il ristorante è stato registrato con successo!");
+        alert.showAndWait();
     }
 
     private void checkOkay () {

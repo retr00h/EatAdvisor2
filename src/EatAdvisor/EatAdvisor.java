@@ -21,15 +21,29 @@ public class EatAdvisor {
     protected static final String PATH_UTENTI = "data" + File.separator + "Utenti.dati";
     protected static final String PATH_RISTORANTI = "data" + File.separator + "EatAdvisor.dati";
 
-    public static boolean isRegistrato(String nickname) {
-        ArrayList<Cliente> clienti = leggiClienti();
-        if (clienti == null) return false;
-        else {
-            for (Cliente c : clienti) {
-                if (c.getNickname().equals(nickname)) return true;
+    public static boolean isRegistrato(String arg, int op) {
+        // 1: cliente
+        // 2: ristoratore
+        if (op == 1) {
+            ArrayList<Object> clienti = leggiClienti();
+            if (clienti != null) {
+                for (Object c : clienti) {
+                    Cliente cliente = (Cliente) c;
+                    if (cliente.getNickname().equals(arg)) return true;
+                }
+            }
+            return false;
+        } else if (op == 2) {
+            ArrayList<Object> ristoratori = leggiRistoratori();
+            if (ristoratori != null) {
+                for (Object r : ristoratori) {
+                    Ristoratore ristoratore = (Ristoratore) r;
+                    if (ristoratore.getNome().toLowerCase().equals(arg.toLowerCase())) return true;
+                }
             }
             return false;
         }
+        return false;
     }
 
     public static boolean alert(Label l, boolean okay) {
@@ -67,6 +81,7 @@ public class EatAdvisor {
      * @return      valore boolean che rappresenta la validita' della stringa s
      */
     public static boolean validate(String s, int op) {
+        // TODO: sistemare la validazione (stringhe minuscole/maiuscole) e il salvataggio nei metodi di registrazione
         /* per ogni caso possibile di input controlla che sia valido e ritorna il conseguente valore booleano
             selezioneRistorante 0
             selezioneCliente    1
@@ -722,15 +737,15 @@ public class EatAdvisor {
      *
      * @return arraylist Clienti contenente i clienti letti
      */
-    private static ArrayList<Cliente> leggiClienti() {
+    private static ArrayList<Object> leggiClienti() {
         File f = new File(PATH_UTENTI);
-        ArrayList<Cliente> utenti = null;
+        ArrayList<Object> utenti = null;
         if (f.exists() && !f.isDirectory()) {
             try {
                 // lettura array utenti da utenti.dati
                 FileInputStream fileInput = new FileInputStream(PATH_UTENTI);
                 ObjectInputStream in = new ObjectInputStream(fileInput);
-                utenti = (ArrayList<Cliente>) in.readObject();
+                utenti = (ArrayList<Object>) in.readObject();
                 in.close();
                 fileInput.close();
                 return utenti;
@@ -741,6 +756,54 @@ public class EatAdvisor {
             System.out.println("Non ci sono utenti registrati.");
         }
         return utenti;
+    }
+
+    private static ArrayList<Object> leggiRistoratori() {
+        File f = new File(PATH_RISTORANTI);
+        ArrayList<Object> ristoranti = null;
+        if (f.exists() && !f.isDirectory()) {
+            try {
+                // lettura array ristoranti da EatAdvisor.dati
+                FileInputStream fileInput = new FileInputStream(PATH_RISTORANTI);
+                ObjectInputStream in = new ObjectInputStream(fileInput);
+                ristoranti = (ArrayList<Object>) in.readObject();
+                in.close();
+                fileInput.close();
+                return ristoranti;
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Qualcosa e' andato storto e non e' stato possibile leggere i dati degli utenti.");
+            }
+        } else {
+            System.out.println("Non ci sono ristoratori registrati.");
+        }
+        return ristoranti;
+    }
+
+    private static ArrayList<Object> leggi(int op) {
+        if (op == 1) {
+            return leggiClienti();
+        } else if (op == 2) {
+            return leggiRistoratori();
+        }
+        return null;
+    }
+
+    public static void scrivi(ArrayList<Object> o, int op) {
+        // 1: cliente
+        // 2. ristoratore
+        if (op == 1) {
+            ArrayList<Cliente> clienti = new ArrayList<>();
+            for (Object ob : o) {
+                clienti.add((Cliente) ob);
+            }
+            scriviClienti(clienti);
+        } else if (op == 2) {
+            ArrayList<Ristoratore> ristoratori = new ArrayList<>();
+            for (Object ob : o) {
+                ristoratori.add((Ristoratore) ob);
+            }
+            scriviRistoratori(ristoratori);
+        }
     }
 
     public static void scriviClienti(ArrayList<Cliente> clienti) {
@@ -758,9 +821,25 @@ public class EatAdvisor {
         }
     }
 
+    public static void scriviRistoratori(ArrayList<Ristoratore> ristoratori) {
+        try {
+            FileOutputStream fileOutput = new FileOutputStream(PATH_RISTORANTI);
+            ObjectOutputStream out = new ObjectOutputStream(fileOutput);
+
+            // serializzazione oggetto nel file utenti.dati
+            out.writeObject(ristoratori);
+
+            out.close();
+            fileOutput.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static Cliente cercaCliente(String nickname, String password) {
-        ArrayList<Cliente> clienti = leggiClienti();
-        for (Cliente clienteRegistrato : clienti) {
+        ArrayList<Object> clienti = leggiClienti();
+        for (int i = 0; i < clienti.size(); i++) {
+            Cliente clienteRegistrato = (Cliente) clienti.get(i);
             if (nickname.equals(clienteRegistrato.getNickname()) && password.equals(clienteRegistrato.getPassword())) {
                 return clienteRegistrato;
             }
@@ -780,12 +859,13 @@ public class EatAdvisor {
         if (f.exists() && !f.isDirectory()) {
             try {
                 // lettura arraylist utenti da utenti.dati
-                ArrayList<Cliente> clienti = leggiClienti();
+                ArrayList<Object> clienti = leggiClienti();
 
                 // se il nickname dell'utente invocante e' gia inserito, stampa un errore e interrompe
                 // l'esecuzione del metodo
                 boolean ok = true;
-                for (Cliente clienteRegistrato : clienti) {
+                for (int i = 0; i < clienti.size(); i++) {
+                    Cliente clienteRegistrato = (Cliente) clienti.get(i);
                     if (c.getNickname().equals(clienteRegistrato.getNickname())) {
                         System.out.println("E' gia' presente un ristorante con questo nome a questo indirizzo.\n");
                         ok = false;
@@ -796,7 +876,7 @@ public class EatAdvisor {
                     clienti.add(c);
                 }
 
-                scriviClienti(clienti);
+                scrivi(clienti, 1);
                 System.out.println("Dati inseriti con successo!\n");
             } catch (Exception e) {
                 System.out.println("Dati non inseriti");
@@ -812,7 +892,98 @@ public class EatAdvisor {
                 System.out.println("Dati non inseriti");
             }
         }
+    }
 
+    public static void registra(Object o, int op) {
+        // 1: cliente
+        // 2: ristoratore
+        File directory = new File("data/");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        File f;
+        if (op == 1) {
+            f = new File(PATH_UTENTI);
+
+            Cliente c = (Cliente) o;
+            if (f.exists() && !f.isDirectory()) {
+                try {
+                    // lettura arraylist utenti da utenti.dati
+                    ArrayList<Object> clienti = leggiClienti();
+
+                    // se il nickname dell'utente invocante e' gia inserito, stampa un errore e interrompe
+                    // l'esecuzione del metodo
+                    boolean ok = true;
+                    for (Object clienteRegistrato : clienti) {
+                        Cliente cliente = (Cliente) clienteRegistrato;
+                        if (c.getNickname().equals(cliente.getNickname())) {
+                            System.out.println("E' gia' presente un ristorante con questo nome a questo indirizzo.\n");
+                            ok = false;
+                            break;
+                        }
+                    }
+                    if (ok) {
+                        clienti.add(c);
+                    }
+
+                    scrivi(clienti, 1);
+                    System.out.println("Dati inseriti con successo!\n");
+                } catch (Exception e) {
+                    System.out.println("Dati non inseriti");
+                }
+            } else {
+                try {
+                    ArrayList<Cliente> clienti = new ArrayList<Cliente>();
+                    clienti.add(c);
+
+                    scriviClienti(clienti);
+                    System.out.println("Dati inseriti con successo!\n");
+                } catch (Exception e) {
+                    System.out.println("Dati non inseriti");
+                }
+            }
+        } else if (op == 2) {
+            f = new File(PATH_RISTORANTI);
+
+            Ristoratore r = (Ristoratore) o;
+            if (f.exists() && !f.isDirectory()) {
+                try {
+                    // lettura arraylist ristoratori da utenti.dati
+                    ArrayList<Object> ristoratori = leggiRistoratori();
+
+                    // se il nickname dell'utente invocante e' gia inserito, stampa un errore e interrompe
+                    // l'esecuzione del metodo
+                    boolean ok = true;
+                    for (Object ristoratoreRegistrato : ristoratori) {
+                        Ristoratore ristoratore = (Ristoratore) ristoratoreRegistrato;
+                        if (r.getNome().equals(ristoratore.getNome())) {
+                            System.out.println("E' gia' presente un ristorante con questo nome a questo indirizzo.\n");
+                            ok = false;
+                            break;
+                        }
+                    }
+                    if (ok) {
+                        ristoratori.add(r);
+                    }
+
+                    scrivi(ristoratori, 2);
+                    System.out.println("Dati inseriti con successo!\n");
+                } catch (Exception e) {
+                    System.out.println("Dati non inseriti");
+                }
+            } else {
+                try {
+                    ArrayList<Ristoratore> ristoratori = new ArrayList<Ristoratore>();
+                    ristoratori.add(r);
+
+                    scriviRistoratori(ristoratori);
+                    System.out.println("Dati inseriti con successo!\n");
+                } catch (Exception e) {
+                    System.out.println("Dati non inseriti");
+                }
+            }
+        }
     }
 
 }
