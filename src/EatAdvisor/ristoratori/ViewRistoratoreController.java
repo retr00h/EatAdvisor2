@@ -92,7 +92,7 @@ public class ViewRistoratoreController {
             } else {
                 EatAdvisor.alert(labelNomeRistorante, true);
                 errorText.setVisible(false);
-                nomeOk = handle(textFieldNomeRistorante, labelNomeRistorante, 2);
+                nomeOk = handle(textFieldNomeRistorante, labelNomeRistorante, 1);
                 checkOkay();
             }
         });
@@ -104,37 +104,37 @@ public class ViewRistoratoreController {
         });
 
         textFieldNomeIndirizzo.setOnKeyReleased(event -> {
-            indirizzoOk = handle(textFieldNomeIndirizzo, labelNomeIndirizzo, 4);
+            indirizzoOk = handle(textFieldNomeIndirizzo, labelNomeIndirizzo, 2);
             checkOkay();
         });
 
         textFieldCivico.setOnKeyReleased(event -> {
-            civicoOk = handle(textFieldCivico, labelCivico, 5);
+            civicoOk = handle(textFieldCivico, labelCivico, 3);
             checkOkay();
         });
 
         textFieldComune.setOnKeyReleased(event -> {
-            comuneOk = handle(textFieldComune, labelComune, 6);
+            comuneOk = handle(textFieldComune, labelComune, 1);
             checkOkay();
         });
 
         textFieldProvincia.setOnKeyReleased(event -> {
-            provinciaOk = handle(textFieldProvincia, labelProvincia, 7);
+            provinciaOk = handle(textFieldProvincia, labelProvincia, 4);
             checkOkay();
         });
 
         textFieldCap.setOnKeyReleased(event -> {
-            capOk = handle(textFieldCap, labelCap, 8);
+            capOk = handle(textFieldCap, labelCap, 5);
             checkOkay();
         });
 
         textFieldTelefono.setOnKeyReleased(event -> {
-            telefonoOk = handle(textFieldTelefono, labelTelefono, 9);
+            telefonoOk = handle(textFieldTelefono, labelTelefono, 6);
             checkOkay();
         });
 
         textFieldUrl.setOnKeyReleased(event -> {
-            urlOk = handle(textFieldUrl, labelUrl, 10);
+            urlOk = handle(textFieldUrl, labelUrl, 7);
             checkOkay();
         });
 

@@ -4,10 +4,8 @@ import EatAdvisor.Giudizio;
 import EatAdvisor.ristoratori.Ristoratore;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import static EatAdvisor.EatAdvisor.input;
 
 /**
  * @author Fabio Cirelli
@@ -245,38 +243,38 @@ public class Cliente implements Serializable {
 //
 //    }
 
-    /**
-     * Chiede all'utente se ha intenzione di inserire un giudizio tramite l'inserimento di una stringa.
-     * Effettua una chiamata al metodo EatAdvisor.input(Scanner input, int op)
-     *
-     * @param input scanner da utilizzare per ottenere dati dall'utente
-     * @return true se e solo se la stringa inserita corrisponde a 1, false altrimenti
-     */
-    private static boolean aggiungiGiudizio(Scanner input) {
-        System.out.println("Se desideri aggiungere un giudizio a questo ristorante, inserisci 1.");
-        return Integer.parseInt(input(input, 18)) == 1;
-    }
+//    /**
+//     * Chiede all'utente se ha intenzione di inserire un giudizio tramite l'inserimento di una stringa.
+//     * Effettua una chiamata al metodo EatAdvisor.input(Scanner input, int op)
+//     *
+//     * @param input scanner da utilizzare per ottenere dati dall'utente
+//     * @return true se e solo se la stringa inserita corrisponde a 1, false altrimenti
+//     */
+//    private static boolean aggiungiGiudizio(Scanner input) {
+//        System.out.println("Se desideri aggiungere un giudizio a questo ristorante, inserisci 1.");
+//        return Integer.parseInt(input(input, 18)) == 1;
+//    }
 
-    /**
-     * Chiede all'utente di inserire un voto e un commento (opzionale), e aggiunge il nuovo giudizio.
-     * Effettua chiamate ai metodi:
-     * EatAdvisor.input(Scanner input, int op)
-     * Ristoratori.getGiudizi()
-     * Ristoratori.addGiudizio()
-     * Giudizio(String nickname, int voto, String commento)
-     * Ristoratori.aggiorna()
-     *
-     * @param input scanner da utilizzare per ottenere dati dall'utente
-     * @param r     ristoratore selezionato al quale aggiungere il giudizio
-     */
-    private void giudica(Scanner input, Ristoratore r) {
-        System.out.println("Inserisci un voto (min1,2,3,4,5max): ");
-        int voto = Integer.parseInt(input(input, 19));
-        System.out.println("(Opzionale) inserisci un commento (max 256 caratteri): ");
-        String commento = input(input, 20);
-        r.addGiudizio(new Giudizio(this.nickname, voto, commento));
-        r.aggiorna();
-    }
+//    /**
+//     * Chiede all'utente di inserire un voto e un commento (opzionale), e aggiunge il nuovo giudizio.
+//     * Effettua chiamate ai metodi:
+//     * EatAdvisor.input(Scanner input, int op)
+//     * Ristoratori.getGiudizi()
+//     * Ristoratori.addGiudizio()
+//     * Giudizio(String nickname, int voto, String commento)
+//     * Ristoratori.aggiorna()
+//     *
+//     * @param input scanner da utilizzare per ottenere dati dall'utente
+//     * @param r     ristoratore selezionato al quale aggiungere il giudizio
+//     */
+//    private void giudica(Scanner input, Ristoratore r) {
+//        System.out.println("Inserisci un voto (min1,2,3,4,5max): ");
+//        int voto = Integer.parseInt(input(input, 19));
+//        System.out.println("(Opzionale) inserisci un commento (max 256 caratteri): ");
+//        String commento = input(input, 20);
+//        r.addGiudizio(new Giudizio(this.nickname, voto, commento));
+//        r.aggiorna();
+//    }
 
 //    /**
 //     * Metodo statico che visualizza il menu per l'utente autenticato.

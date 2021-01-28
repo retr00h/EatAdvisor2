@@ -56,20 +56,20 @@ public class EatAdvisor {
         }
     }
 
-    public static void alert(Label l, Text text, boolean okay) {
-        if (okay) {
-            text.setVisible(true);
-        } else {
-            text.setVisible(false);
-        }
-        alert(l, okay);
-    }
+//    public static void alert(Label l, Text text, boolean okay) {
+//        if (okay) {
+//            text.setVisible(true);
+//        } else {
+//            text.setVisible(false);
+//        }
+//        alert(l, okay);
+//    }
 
-    public static void login (Cliente c) {
-        if (cercaCliente(c.getNickname(), c.getPassword()) != null) {
-
-        }
-    }
+//    public static void login (Cliente c) {
+//        if (cercaCliente(c.getNickname(), c.getPassword()) != null) {
+//
+//        }
+//    }
 
     /**
      * Per op 0, 1 e 16 controlla direttamente se s e' valida.
@@ -81,7 +81,24 @@ public class EatAdvisor {
      * @return      valore boolean che rappresenta la validita' della stringa s
      */
     public static boolean validate(String s, int op) {
-        // TODO: sistemare la validazione (stringhe minuscole/maiuscole) e il salvataggio nei metodi di registrazione
+
+        /* TABELLA AGGIORNATA per ogni caso possibile di input controlla che sia valido e ritorna il conseguente valore booleano
+           1: nome OPPURE comune
+           2: nomeIndirizzo
+           3: civico
+           4: provincia
+           5: cap
+           6: telefono
+           7: url
+           8: cognome
+           9: email
+           10: nickname
+           11: password
+           12: commento
+         */
+
+
+
         /* per ogni caso possibile di input controlla che sia valido e ritorna il conseguente valore booleano
             selezioneRistorante 0
             selezioneCliente    1
@@ -105,16 +122,14 @@ public class EatAdvisor {
             voto                19
             commento            20
          */
-        String regexNome = "^[A-Za-z\\s]+[A-Za-z\\s]*$";
-        String regexTipoIndirizzo = "^(via|viale|corso|piazza|piazzale|largo|lungolago|lungomare|rotonda|vicolo|vicoletto)$";
+
+        String regexNomeEComune = "^[a-z\\s]+$"; //"^[A-Za-z\\s]+[A-Za-z\\s]*$";
         String regexNomeIndirizzo = "^[a-z0-9\\s]+$";
         String regexCivico = "^[0-9]{1,4}[A-Z]|[0-9]{1,4}$";
-        String regexComune = "^[a-z'\\s]+$";
-        String regexProvincia = "^[A-Z]{2}$";
+        String regexProvincia = "^[A-Za-z]{2}$";
         String regexCap = "^[0-9]{5}$";
         String regexTelefono = "^(\\+[0-9]{12}|[0-9]{10})$";
         String regexUrl = "^(http://|https://)?(www.)?([a-zA-Z0-9]+).[a-zA-Z0-9]*.[a-z]{3}.?([a-z]+)?$";
-        String regexTipologiaRistorante = "^(italiano|etnico|fusion)$";
 
         String regexCognome = "^[A-Za-z\\s]+[A-Za-z\\s]*$";
         String regexEmail = "^[a-zA-Z0-9_.-]{1,64}@[a-zA-Z0-9.-]{1,}\\.[a-zA-Z]{2,3}$";
@@ -122,58 +137,18 @@ public class EatAdvisor {
         String regexPassword = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,})";
 
         switch (op) {
-            case 0: return s.equals("0") || s.equals("1");
-            case 1: return s.equals("0") || s.equals("1") || s.equals("2") || s.equals("3");
-            case 2: return s.matches(regexNome);
-            case 3: return s.toLowerCase().matches(regexTipoIndirizzo);
-            case 4: return s.toLowerCase().matches(regexNomeIndirizzo);
-            case 5: return s.matches(regexCivico);
-            case 6: return s.toLowerCase().matches(regexComune);
-            case 7:
-                return s.toUpperCase().matches(regexProvincia);
-            case 8:
-                return s.matches(regexCap);
-            case 9:
-                return s.matches(regexTelefono);
-            case 10:
-                return s.length() == 0 || s.toLowerCase().matches(regexUrl);
-            case 11:
-                return s.matches(regexTipologiaRistorante);
-            case 12:
-                return s.matches(regexCognome);
-            case 13:
-                return s.matches(regexEmail);
-            case 14:
-                return s.matches(regexNickname);
-            case 15:
-                return s.matches(regexPassword);
-            case 16:
-                return s.equals("0") || s.equals("1") || s.equals("2") || s.equals("3");
-            case 17:
-                try {
-                    int i = Integer.parseInt(s);
-                    if (i > 0) {
-                        return true;
-                    }
-                } catch (Exception e) {
-                    return false;
-                }
-            case 18:
-                try {
-                    int i = Integer.parseInt(s);
-                    return true;
-                } catch (Exception e) {
-                    return false;
-                }
-            case 19:
-                try {
-                    int i = Integer.parseInt(s);
-                    return i >= 1 && i <= 5;
-                } catch (Exception e) {
-                    return false;
-                }
-            case 20:
-                return s.length() <= 256;
+            case 1: return s.toLowerCase().matches(regexNomeEComune);
+            case 2: return s.toLowerCase().matches(regexNomeIndirizzo);
+            case 3: return s.matches(regexCivico);
+            case 4: return s.matches(regexProvincia);
+            case 5: return s.matches(regexCap);
+            case 6: return s.matches(regexTelefono);
+            case 7: return s.length() == 0 || s.toLowerCase().matches(regexUrl);
+            case 8: return s.matches(regexCognome);
+            case 9: return s.matches(regexEmail);
+            case 10: return s.matches(regexNickname);
+            case 11: return s.matches(regexPassword);
+            case 12: return s.length() <= 256;
             default: return false;
         }
     }
@@ -188,290 +163,290 @@ public class EatAdvisor {
      * @param op    tipo di stringa
      * @return stringa inserita in input
      */
-    public static String input(Scanner input, int op) {
-        // per ogni caso possibile di input (vedere il metodo validate) legge la stringa, controlla che sia valida,
-        // e se non lo e', continua a richiederla finche non ne viene inserita una valida
-        String s;
-        switch (op) {
-            case 0:
-                s = input.nextLine();
-                if (validate(s, 0)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nRiprovare.\n");
-                        s = input.nextLine();
-                        if (validate(s, 0)) {
-                            return s;
-                        }
-                    }
-                }
-            case 1:
-                s = input.nextLine();
-                if (validate(s, 1)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nRiprovare.\n");
-                        s = input.nextLine();
-                        if (validate(s, 1)) {
-                            return s;
-                        }
-                    }
-                }
-            case 2:
-                s = input.nextLine();
-                if (validate(s, 2)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nRiprovare.\n");
-                        s = input.nextLine();
-                        if (validate(s, 2)) {
-                            return s;
-                        }
-                    }
-                }
-            case 3:
-                s = input.nextLine().toLowerCase();
-                if (validate(s, 3)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nRiprovare.\nI tipi disponibili sono: via, viale, corso, piazza, " +
-                                "piazzale, largo, lungolago, lungomare, rotonda, vicolo, vicoletto.\n");
-                        s = input.nextLine().toLowerCase();
-                        if (validate(s, 3)) {
-                            return s;
-                        }
-                    }
-                }
-            case 4:
-                s = input.nextLine().toLowerCase();
-                if (validate(s, 4)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nRiprovare.\n");
-                        s = input.nextLine().toLowerCase();
-                        if (validate(s, 4)) {
-                            return s;
-                        }
-                    }
-                }
-            case 5:
-                s = input.nextLine().toUpperCase().replace(" ", "");
-                if (validate(s, 5)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nRiprovare.\n");
-                        s = input.nextLine().toUpperCase().replace(" ", "");
-                        if (validate(s, 5)) {
-                            return s;
-                        }
-                    }
-                }
-            case 6:
-                s = input.nextLine().toLowerCase();
-                if (validate(s, 6)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nRiprovare.\n");
-                        s = input.nextLine().toLowerCase();
-                        if (validate(s, 6)) {
-                            return s;
-                        }
-                    }
-                }
-            case 7:
-                s = input.nextLine().toUpperCase();
-                if (validate(s, 7)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nRiprovare.\n");
-                        s = input.nextLine().toUpperCase();
-                        if (validate(s, 7)) {
-                            return s;
-                        }
-                    }
-                }
-            case 8:
-                s = input.nextLine();
-                if (validate(s, 8)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nRiprovare.\n");
-                        s = input.nextLine();
-                        if (validate(s, 8)) {
-                            return s;
-                        }
-                    }
-                }
-            case 9:
-                s = input.nextLine().replace(" ", "");
-                if (validate(s, 9)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nRiprovare.\n");
-                        s = input.nextLine().replace(" ", "");
-                        if (validate(s, 9)) {
-                            return s;
-                        }
-                    }
-                }
-            case 10:
-                s = input.nextLine();
-                if (validate(s, 10)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nRiprovare. Per un elenco completo dei formati disponibili, " +
-                                "consultare il manuale a pagina XXX.\n\n");
-                        s = input.nextLine();
-                        if (validate(s, 10)) {
-                            return s;
-                        }
-                    }
-                }
-            case 11:
-                s = input.nextLine().toLowerCase();
-                if (validate(s, 11)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nRiprovare.\n");
-                        s = input.nextLine().toLowerCase();
-                        if (validate(s, 11)) {
-                            return s;
-                        }
-                    }
-                }
-            case 12:
-                s = input.nextLine();
-                if (validate(s, 12)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nRiprovare.\n");
-                        s = input.nextLine();
-                        if (validate(s, 12)) {
-                            return s;
-                        }
-                    }
-                }
-            case 13:
-                s = input.nextLine().replace(" ", "");
-                if (validate(s, 13)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nRiprovare.\n");
-                        s = input.nextLine().replace(" ", "");
-                        if (validate(s, 13)) {
-                            return s;
-                        }
-                    }
-                }
-            case 14:
-                s = input.nextLine();
-                if (validate(s, 14)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nRiprovare. Per un elenco completo dei formati disponibili, " +
-                                "consultare il manuale a pagina XXX.\n\n");
-                        s = input.nextLine();
-                        if (validate(s, 14)) {
-                            return s;
-                        }
-                    }
-                }
-            case 15:
-                s = input.nextLine();
-                if (validate(s, 15)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nRiprovare.\n");
-                        s = input.nextLine();
-                        if (validate(s, 15)) {
-                            return s;
-                        }
-                    }
-                }
-            case 16:
-                s = input.nextLine();
-                if (validate(s, 16)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nRiprovare.\n");
-                        s = input.nextLine();
-                        if (validate(s, 16)) {
-                            return s;
-                        }
-                    }
-                }
-            case 17:
-                s = input.nextLine();
-                if (validate(s, 17)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nRiprovare.\n");
-                        s = input.nextLine();
-                        if (validate(s, 17)) {
-                            return s;
-                        }
-                    }
-                }
-            case 18:
-                s = input.nextLine();
-                if (validate(s, 18)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nRiprovare.\n");
-                        s = input.nextLine();
-                        if (validate(s, 18)) {
-                            return s;
-                        }
-                    }
-                }
-            case 19:
-                s = input.nextLine();
-                if (validate(s, 19)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nRiprovare. Valori consentiti: 1, 2, 3, 4, 5.\n");
-                        s = input.nextLine();
-                        if (validate(s, 19)) {
-                            return s;
-                        }
-                    }
-                }
-            case 20:
-                s = input.nextLine();
-                if (validate(s, 20)) {
-                    return s;
-                } else {
-                    while (true) {
-                        System.out.println("\nMax 256 caratteri. Riprovare.\n");
-                        s = input.nextLine();
-                        if (validate(s, 20)) {
-                            return s;
-                        }
-                    }
-                }
-            default: return null;
-        }
-    }
+//    public static String input(Scanner input, int op) {
+//        // per ogni caso possibile di input (vedere il metodo validate) legge la stringa, controlla che sia valida,
+//        // e se non lo e', continua a richiederla finche non ne viene inserita una valida
+//        String s;
+//        switch (op) {
+//            case 0:
+//                s = input.nextLine();
+//                if (validate(s, 0)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nRiprovare.\n");
+//                        s = input.nextLine();
+//                        if (validate(s, 0)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            case 1:
+//                s = input.nextLine();
+//                if (validate(s, 1)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nRiprovare.\n");
+//                        s = input.nextLine();
+//                        if (validate(s, 1)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            case 2:
+//                s = input.nextLine();
+//                if (validate(s, 2)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nRiprovare.\n");
+//                        s = input.nextLine();
+//                        if (validate(s, 2)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            case 3:
+//                s = input.nextLine().toLowerCase();
+//                if (validate(s, 3)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nRiprovare.\nI tipi disponibili sono: via, viale, corso, piazza, " +
+//                                "piazzale, largo, lungolago, lungomare, rotonda, vicolo, vicoletto.\n");
+//                        s = input.nextLine().toLowerCase();
+//                        if (validate(s, 3)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            case 4:
+//                s = input.nextLine().toLowerCase();
+//                if (validate(s, 4)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nRiprovare.\n");
+//                        s = input.nextLine().toLowerCase();
+//                        if (validate(s, 4)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            case 5:
+//                s = input.nextLine().toUpperCase().replace(" ", "");
+//                if (validate(s, 5)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nRiprovare.\n");
+//                        s = input.nextLine().toUpperCase().replace(" ", "");
+//                        if (validate(s, 5)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            case 6:
+//                s = input.nextLine().toLowerCase();
+//                if (validate(s, 6)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nRiprovare.\n");
+//                        s = input.nextLine().toLowerCase();
+//                        if (validate(s, 6)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            case 7:
+//                s = input.nextLine().toUpperCase();
+//                if (validate(s, 7)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nRiprovare.\n");
+//                        s = input.nextLine().toUpperCase();
+//                        if (validate(s, 7)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            case 8:
+//                s = input.nextLine();
+//                if (validate(s, 8)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nRiprovare.\n");
+//                        s = input.nextLine();
+//                        if (validate(s, 8)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            case 9:
+//                s = input.nextLine().replace(" ", "");
+//                if (validate(s, 9)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nRiprovare.\n");
+//                        s = input.nextLine().replace(" ", "");
+//                        if (validate(s, 9)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            case 10:
+//                s = input.nextLine();
+//                if (validate(s, 10)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nRiprovare. Per un elenco completo dei formati disponibili, " +
+//                                "consultare il manuale a pagina XXX.\n\n");
+//                        s = input.nextLine();
+//                        if (validate(s, 10)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            case 11:
+//                s = input.nextLine().toLowerCase();
+//                if (validate(s, 11)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nRiprovare.\n");
+//                        s = input.nextLine().toLowerCase();
+//                        if (validate(s, 11)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            case 12:
+//                s = input.nextLine();
+//                if (validate(s, 12)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nRiprovare.\n");
+//                        s = input.nextLine();
+//                        if (validate(s, 12)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            case 13:
+//                s = input.nextLine().replace(" ", "");
+//                if (validate(s, 13)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nRiprovare.\n");
+//                        s = input.nextLine().replace(" ", "");
+//                        if (validate(s, 13)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            case 14:
+//                s = input.nextLine();
+//                if (validate(s, 14)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nRiprovare. Per un elenco completo dei formati disponibili, " +
+//                                "consultare il manuale a pagina XXX.\n\n");
+//                        s = input.nextLine();
+//                        if (validate(s, 14)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            case 15:
+//                s = input.nextLine();
+//                if (validate(s, 15)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nRiprovare.\n");
+//                        s = input.nextLine();
+//                        if (validate(s, 15)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            case 16:
+//                s = input.nextLine();
+//                if (validate(s, 16)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nRiprovare.\n");
+//                        s = input.nextLine();
+//                        if (validate(s, 16)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            case 17:
+//                s = input.nextLine();
+//                if (validate(s, 17)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nRiprovare.\n");
+//                        s = input.nextLine();
+//                        if (validate(s, 17)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            case 18:
+//                s = input.nextLine();
+//                if (validate(s, 18)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nRiprovare.\n");
+//                        s = input.nextLine();
+//                        if (validate(s, 18)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            case 19:
+//                s = input.nextLine();
+//                if (validate(s, 19)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nRiprovare. Valori consentiti: 1, 2, 3, 4, 5.\n");
+//                        s = input.nextLine();
+//                        if (validate(s, 19)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            case 20:
+//                s = input.nextLine();
+//                if (validate(s, 20)) {
+//                    return s;
+//                } else {
+//                    while (true) {
+//                        System.out.println("\nMax 256 caratteri. Riprovare.\n");
+//                        s = input.nextLine();
+//                        if (validate(s, 20)) {
+//                            return s;
+//                        }
+//                    }
+//                }
+//            default: return null;
+//        }
+//    }
 
     /**
      * Metodo statico che ordina l'arraylist ristoratori tramite bubble sort
@@ -779,14 +754,14 @@ public class EatAdvisor {
         return ristoranti;
     }
 
-    private static ArrayList<Object> leggi(int op) {
-        if (op == 1) {
-            return leggiClienti();
-        } else if (op == 2) {
-            return leggiRistoratori();
-        }
-        return null;
-    }
+//    private static ArrayList<Object> leggi(int op) {
+//        if (op == 1) {
+//            return leggiClienti();
+//        } else if (op == 2) {
+//            return leggiRistoratori();
+//        }
+//        return null;
+//    }
 
     public static void scrivi(ArrayList<Object> o, int op) {
         // 1: cliente
@@ -838,61 +813,63 @@ public class EatAdvisor {
 
     public static Cliente cercaCliente(String nickname, String password) {
         ArrayList<Object> clienti = leggiClienti();
-        for (int i = 0; i < clienti.size(); i++) {
-            Cliente clienteRegistrato = (Cliente) clienti.get(i);
-            if (nickname.equals(clienteRegistrato.getNickname()) && password.equals(clienteRegistrato.getPassword())) {
-                return clienteRegistrato;
+        if (clienti != null){
+            for (Object o : clienti) {
+                Cliente clienteRegistrato = (Cliente) o;
+                if (nickname.equals(clienteRegistrato.getNickname()) && password.equals(clienteRegistrato.getPassword())) {
+                    return clienteRegistrato;
+                }
             }
         }
         return null;
     }
 
-    public static void registraCliente (Cliente c) {
-        File f = new File(PATH_UTENTI);
-
-        // crea la directory se non esiste
-        File directory = new File("data/");
-        if (!directory.exists()) {
-            directory.mkdir();
-        }
-
-        if (f.exists() && !f.isDirectory()) {
-            try {
-                // lettura arraylist utenti da utenti.dati
-                ArrayList<Object> clienti = leggiClienti();
-
-                // se il nickname dell'utente invocante e' gia inserito, stampa un errore e interrompe
-                // l'esecuzione del metodo
-                boolean ok = true;
-                for (int i = 0; i < clienti.size(); i++) {
-                    Cliente clienteRegistrato = (Cliente) clienti.get(i);
-                    if (c.getNickname().equals(clienteRegistrato.getNickname())) {
-                        System.out.println("E' gia' presente un ristorante con questo nome a questo indirizzo.\n");
-                        ok = false;
-                        break;
-                    }
-                }
-                if (ok) {
-                    clienti.add(c);
-                }
-
-                scrivi(clienti, 1);
-                System.out.println("Dati inseriti con successo!\n");
-            } catch (Exception e) {
-                System.out.println("Dati non inseriti");
-            }
-        } else {
-            try {
-                ArrayList<Cliente> clienti = new ArrayList<Cliente>();
-                clienti.add(c);
-
-                scriviClienti(clienti);
-                System.out.println("Dati inseriti con successo!\n");
-            } catch (Exception e) {
-                System.out.println("Dati non inseriti");
-            }
-        }
-    }
+//    public static void registraCliente (Cliente c) {
+//        File f = new File(PATH_UTENTI);
+//
+//        // crea la directory se non esiste
+//        File directory = new File("data/");
+//        if (!directory.exists()) {
+//            directory.mkdir();
+//        }
+//
+//        if (f.exists() && !f.isDirectory()) {
+//            try {
+//                // lettura arraylist utenti da utenti.dati
+//                ArrayList<Object> clienti = leggiClienti();
+//
+//                // se il nickname dell'utente invocante e' gia inserito, stampa un errore e interrompe
+//                // l'esecuzione del metodo
+//                boolean ok = true;
+//                for (int i = 0; i < clienti.size(); i++) {
+//                    Cliente clienteRegistrato = (Cliente) clienti.get(i);
+//                    if (c.getNickname().equals(clienteRegistrato.getNickname())) {
+//                        System.out.println("E' gia' presente un ristorante con questo nome a questo indirizzo.\n");
+//                        ok = false;
+//                        break;
+//                    }
+//                }
+//                if (ok) {
+//                    clienti.add(c);
+//                }
+//
+//                scrivi(clienti, 1);
+//                System.out.println("Dati inseriti con successo!\n");
+//            } catch (Exception e) {
+//                System.out.println("Dati non inseriti");
+//            }
+//        } else {
+//            try {
+//                ArrayList<Cliente> clienti = new ArrayList<Cliente>();
+//                clienti.add(c);
+//
+//                scriviClienti(clienti);
+//                System.out.println("Dati inseriti con successo!\n");
+//            } catch (Exception e) {
+//                System.out.println("Dati non inseriti");
+//            }
+//        }
+//    }
 
     public static void registra(Object o, int op) {
         // 1: cliente

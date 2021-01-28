@@ -48,13 +48,11 @@ public class MainViewClienteController {
 
     public void initialize() {
         loginButton.setOnMouseClicked(event -> login(true));
-        continueButton.setOnMouseClicked(event -> {
-            login(false);
-        });
+        continueButton.setOnMouseClicked(event -> login(false));
 
         nicknameField.setOnKeyReleased(event -> {
             if (!nicknameField.getText().equals("")) {
-                if (EatAdvisor.validate(nicknameField.getText(), 14)) {
+                if (EatAdvisor.validate(nicknameField.getText(), 10)) {
                     continueButton.setVisible(false);
                     continueLabel.setVisible(false);
                     if (EatAdvisor.isRegistrato(nicknameField.getText(), 1)) {
@@ -69,6 +67,7 @@ public class MainViewClienteController {
                         confirmPasswordField.setVisible(true);
                         confirmPasswordLabel.setVisible(true);
                         continueButton.setText("Continua la registrazione");
+                        anchorPane.setLeftAnchor(continueButton, 201.00);
                     }
                 }
             } else {
@@ -85,7 +84,7 @@ public class MainViewClienteController {
         });
 
         passwordField.setOnKeyReleased(event -> {
-            if (checkOkay(nicknameField.getText(), passwordField.getText())) {
+            if (checkNicknameAndPassword(nicknameField.getText(), passwordField.getText())) {
                 continueButton.setDisable(false);
                 login(true);
             }
@@ -94,36 +93,22 @@ public class MainViewClienteController {
         confirmPasswordField.setOnKeyReleased(event -> {
             if (passwordField.getText().equals(confirmPasswordField.getText())) {
                 EatAdvisor.alert(confirmPasswordLabel, true);
+                continueButton.setVisible(true);
                 continueButton.setOnMouseClicked(event1 -> {
                     Cliente c = new Cliente(null,null,null,null,null,
                             nicknameField.getText(), passwordField.getText());
                     registraCliente(c);
                 });
             } else {
+                continueButton.setVisible(false);
                 EatAdvisor.alert(confirmPasswordLabel, false);
             }
         });
     }
 
-    private void notLoggedUser() {
-        try {
-            Stage stage = (Stage) anchorPane.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("NotLoggedUserView.fxml"));
-            Parent newRoot = loader.load();
-
-            Scene newScene = new Scene(newRoot);
-            stage.setScene(newScene);
-            stage.setMinWidth(600);
-            stage.setMinHeight(400);
-            stage.setResizable(false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private void login(boolean haveToLogin) {
         if (haveToLogin) {
-            if (checkOkay(nicknameField.getText(), passwordField.getText())) {
+            if (checkNicknameAndPassword(nicknameField.getText(), passwordField.getText())) {
                 continueButton.setDisable(false);
                 continueButton.setOnMouseClicked(event1 -> {
                     try {
@@ -165,7 +150,7 @@ public class MainViewClienteController {
         }
     }
 
-    private boolean checkOkay(String nickname, String password) {
+    private boolean checkNicknameAndPassword(String nickname, String password) {
         return EatAdvisor.cercaCliente(nickname, password) != null;
     }
 

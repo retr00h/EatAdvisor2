@@ -63,86 +63,28 @@ public class ViewRegistrazioneController {
 
     public void initialize() {
         textFieldNome.setOnKeyReleased(event -> {
-            nomeOkay = EatAdvisor.alert(labelNome, EatAdvisor.validate(textFieldNome.getText().toLowerCase(), 2));
-            checkOkay();
+            nomeOkay = EatAdvisor.alert(labelNome, EatAdvisor.validate(textFieldNome.getText(), 1));
+            checkOkayGlobal();
         });
-//        textFieldNome.focusedProperty().addListener(new ChangeListener<Boolean>()
-//        {
-//            @Override
-//            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean onFocus) {
-//                if (!onFocus) {
-//                    nomeOkay = EatAdvisor.alert(labelNome, EatAdvisor.validate(textFieldNome.getText(), 2));
-//                }
-//                checkOkay();
-//            }
-//        });
-
         textFieldCognome.setOnKeyReleased(event -> {
-            cognomeOkay = EatAdvisor.alert(labelCognome, EatAdvisor.validate(textFieldCognome.getText().toLowerCase(), 12));
-            checkOkay();
+            cognomeOkay = EatAdvisor.alert(labelCognome, EatAdvisor.validate(textFieldCognome.getText(), 8));
+            checkOkayGlobal();
         });
-
-//        textFieldCognome.focusedProperty().addListener(new ChangeListener<Boolean>()
-//        {
-//            @Override
-//            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean onFocus) {
-//                if (!onFocus) {
-//                    cognomeOkay = EatAdvisor.alert(labelCognome, EatAdvisor.validate(textFieldCognome.getText(), 12));
-//                }
-//                checkOkay();
-//            }
-//        });
-
         textFieldComune.setOnKeyReleased(event -> {
-            comuneOkay = EatAdvisor.alert(labelComune, EatAdvisor.validate(textFieldComune.getText().toLowerCase(), 6));
-            checkOkay();
+            comuneOkay = EatAdvisor.alert(labelComune, EatAdvisor.validate(textFieldComune.getText(), 1));
+            checkOkayGlobal();
         });
-
-//        textFieldComune.focusedProperty().addListener(new ChangeListener<Boolean>()
-//        {
-//            @Override
-//            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean onFocus) {
-//                if (!onFocus) {
-//                    comuneOkay = EatAdvisor.alert(labelComune, EatAdvisor.validate(textFieldComune.getText(), 6));
-//                }
-//                checkOkay();
-//            }
-//        });
-
         textFieldProvincia.setOnKeyReleased(event -> {
-            provinciaOkay = EatAdvisor.alert(labelProvincia, EatAdvisor.validate(textFieldProvincia.getText().toUpperCase(), 7));
-            checkOkay();
+            provinciaOkay = EatAdvisor.alert(labelProvincia, EatAdvisor.validate(textFieldProvincia.getText(), 4));
+            checkOkayGlobal();
         });
-
-//        textFieldProvincia.focusedProperty().addListener(new ChangeListener<Boolean>()
-//        {
-//            @Override
-//            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean onFocus) {
-//                if (!onFocus) {
-//                    provinciaOkay = EatAdvisor.alert(labelProvincia, EatAdvisor.validate(textFieldProvincia.getText(), 7));
-//                }
-//                checkOkay();
-//            }
-//        });
-
         textFieldEmail.setOnKeyReleased(event -> {
-            emailOkay = EatAdvisor.alert(labelEmail, EatAdvisor.validate(textFieldEmail.getText().toLowerCase(), 13));
-            checkOkay();
+            emailOkay = EatAdvisor.alert(labelEmail, EatAdvisor.validate(textFieldEmail.getText(), 9));
+            checkOkayGlobal();
         });
-
-//        textFieldEmail.focusedProperty().addListener(new ChangeListener<Boolean>()
-//        {
-//            @Override
-//            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean onFocus) {
-//                if (!onFocus) {
-//                    emailOkay = EatAdvisor.alert(labelEmail, EatAdvisor.validate(textFieldEmail.getText(), 13));
-//                }
-//                checkOkay();
-//            }
-//        });
     }
 
-    private boolean checkOkay() {
+    private void checkOkayGlobal() {
         boolean b = nomeOkay && cognomeOkay && comuneOkay && provinciaOkay && emailOkay;
         if (b) {
             registerButton.setDisable(false);
@@ -173,7 +115,6 @@ public class ViewRegistrazioneController {
         } else {
             registerButton.setDisable(true);
         }
-        return b;
     }
 
     public void setUser(Cliente c) {
