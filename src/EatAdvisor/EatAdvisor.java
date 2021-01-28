@@ -95,6 +95,7 @@ public class EatAdvisor {
            10: nickname
            11: password
            12: commento
+           13: nomeRistorante
          */
 
 
@@ -136,6 +137,8 @@ public class EatAdvisor {
         String regexNickname = "^[A-Za-z0-9_.\\-]+$";
         String regexPassword = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,})";
 
+        String regexNomeRistorante = "^[A-Za-z1-9\\s]+$";
+
         switch (op) {
             case 1: return s.toLowerCase().matches(regexNomeEComune);
             case 2: return s.toLowerCase().matches(regexNomeIndirizzo);
@@ -149,6 +152,7 @@ public class EatAdvisor {
             case 10: return s.matches(regexNickname);
             case 11: return s.matches(regexPassword);
             case 12: return s.length() <= 256;
+            case 13: return s.matches(regexNomeRistorante);
             default: return false;
         }
     }
@@ -733,7 +737,7 @@ public class EatAdvisor {
         return utenti;
     }
 
-    private static ArrayList<Object> leggiRistoratori() {
+    public static ArrayList<Object> leggiRistoratori() {
         File f = new File(PATH_RISTORANTI);
         ArrayList<Object> ristoranti = null;
         if (f.exists() && !f.isDirectory()) {

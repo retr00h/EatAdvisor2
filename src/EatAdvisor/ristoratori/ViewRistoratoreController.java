@@ -92,7 +92,7 @@ public class ViewRistoratoreController {
             } else {
                 EatAdvisor.alert(labelNomeRistorante, true);
                 errorText.setVisible(false);
-                nomeOk = handle(textFieldNomeRistorante, labelNomeRistorante, 1);
+                nomeOk = handle(textFieldNomeRistorante, labelNomeRistorante, 13);
                 checkOkay();
             }
         });

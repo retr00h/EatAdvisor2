@@ -107,7 +107,7 @@ public class ViewRegistrazioneController {
                     stage.setScene(newScene);
                     stage.setMinWidth(600);
                     stage.setMinHeight(400);
-                    stage.setResizable(false);
+//                    stage.setResizable(false);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

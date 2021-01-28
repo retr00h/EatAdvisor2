@@ -5,7 +5,6 @@ import EatAdvisor.Giudizio;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * @author Fabio Cirelli
