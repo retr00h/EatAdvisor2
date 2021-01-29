@@ -82,6 +82,15 @@ public class LoggedUserViewController {
     @FXML
     private Text mediaGiudiziRistorante;
 
+    @FXML
+    private Text dettagliGiudizi;
+
+    @FXML
+    private Button bottoneAggiungiGiudizio;
+
+    @FXML
+    private Text textRegistrati;
+
     private Cliente cliente;
     private ObservableList<Object> ristoratoriFull;
 
@@ -90,9 +99,6 @@ public class LoggedUserViewController {
     }
 
     public void initialize() {
-        if (cliente == null) {
-            // TODO: settare invisibile il bottone per aggiungere un giudizio
-        }
 
         bottoneCerca.setOnMouseClicked(new HandlerBottone());
 
@@ -111,8 +117,9 @@ public class LoggedUserViewController {
             row.setOnMouseClicked(event -> {
                 TableRow<Object> tableRow = (TableRow<Object>) event.getSource();
                 Ristoratore r = (Ristoratore) tableRow.getItem();
-
-                selezionaRistoratore(r);
+                if (r != null) {
+                    selezionaRistoratore(r);
+                }
             });
             return row ;
         });
@@ -144,6 +151,16 @@ public class LoggedUserViewController {
         indirizzoRistorante.setVisible(true);
         tipologiaRistorante.setVisible(true);
         mediaGiudiziRistorante.setVisible(true);
+
+        dettagliGiudizi.setVisible(true);
+        bottoneAggiungiGiudizio.setVisible(true);
+
+        // TODO: sistemare il bottone (rimane disabilitato anche se l'utente è loggato)
+
+        if (cliente == null) {
+            bottoneAggiungiGiudizio.setDisable(true);
+            textRegistrati.setVisible(true);
+        }
     }
 
     private class HandlerBottone implements EventHandler<MouseEvent> {
