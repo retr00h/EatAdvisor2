@@ -651,30 +651,30 @@ public class EatAdvisor {
         }
     }
 
-    /**
-     * Metodo statico che stampa a video un numero progressivo,
-     * i nomi e gli indirizzi dei ristoranti nell'arraylist ristoratori specificato
-     *
-     * @param ristoratori arraylist di ristoranti dei quali visualizzare numero, nome e indirizzo
-     */
-    public static void visualizzaRistoranti(ArrayList<Ristoratore> ristoratori) {
-        if (ristoratori != null) {
-            int i = 1;
-            for (Ristoratore r : ristoratori) {
-                if (r != null) {
-                    String indirizzo = capitalize(r.getTipoIndirizzo()) + " " +
-                            capitalize(r.getNomeIndirizzo()) + ", #" +
-                            r.getCivico() + ", " + capitalize(r.getComune()) + ", " +
-                            r.getProvincia() + " " + r.getCap();
-                    System.out.println("Ristorante " + (i));
-                    System.out.println("Nome: " + r.getNome());
-                    System.out.println("Indirizzo: " + indirizzo);
-                    System.out.println();
-                }
-                i++;
-            }
-        }
-    }
+//    /**
+//     * Metodo statico che stampa a video un numero progressivo,
+//     * i nomi e gli indirizzi dei ristoranti nell'arraylist ristoratori specificato
+//     *
+//     * @param ristoratori arraylist di ristoranti dei quali visualizzare numero, nome e indirizzo
+//     */
+//    public static void visualizzaRistoranti(ArrayList<Ristoratore> ristoratori) {
+//        if (ristoratori != null) {
+//            int i = 1;
+//            for (Ristoratore r : ristoratori) {
+//                if (r != null) {
+//                    String indirizzo = capitalize(r.getTipoIndirizzo()) + " " +
+//                            capitalize(r.getNomeIndirizzo()) + ", #" +
+//                            r.getCivico() + ", " + capitalize(r.getComune()) + ", " +
+//                            r.getProvincia() + " " + r.getCap();
+//                    System.out.println("Ristorante " + (i));
+//                    System.out.println("Nome: " + r.getNome());
+//                    System.out.println("Indirizzo: " + indirizzo);
+//                    System.out.println();
+//                }
+//                i++;
+//            }
+//        }
+//    }
 
     /**
      * Metodo statico che riceve un arraylist di ristoranti e un intero n maggiore di 0.
@@ -693,22 +693,32 @@ public class EatAdvisor {
         }
     }
 
-    /**
-     * Metodo statico che visualizza le informazioni del ristorante selezionato
-     *
-     * @param r ristorante del quale visualizzare le informazioni complete
-     */
-    public static void visualizzaInfoRistorante(Ristoratore r) {
-        if (r != null) {
-            String indirizzo = capitalize(r.getTipoIndirizzo()) + " " + capitalize(r.getNomeIndirizzo()) + ", #" +
-                    r.getCivico() + ", " + capitalize(r.getComune()) + ", " + r.getProvincia() + " " + r.getCap();
-            System.out.println("Nome: " + r.getNome());
-            System.out.println("Indirizzo: " + indirizzo);
-            System.out.println("Telefono: " + r.getTelefono());
-            System.out.println("Sito web: " + r.getUrl());
-            System.out.println("Tipologia: " + capitalize(r.getTipologia()));
-            visualizzaGiudizi(r);
-        }
+//    /**
+//     * Metodo statico che visualizza le informazioni del ristorante selezionato
+//     *
+//     * @param r ristorante del quale visualizzare le informazioni complete
+//     */
+//    public static void visualizzaInfoRistorante(Ristoratore r) {
+//        if (r != null) {
+//            String indirizzo = capitalize(r.getTipoIndirizzo()) + " " + capitalize(r.getNomeIndirizzo()) + ", #" +
+//                    r.getCivico() + ", " + capitalize(r.getComune()) + ", " + r.getProvincia() + " " + r.getCap();
+//            System.out.println("Nome: " + r.getNome());
+//            System.out.println("Indirizzo: " + indirizzo);
+//            System.out.println("Telefono: " + r.getTelefono());
+//            System.out.println("Sito web: " + r.getUrl());
+//            System.out.println("Tipologia: " + capitalize(r.getTipologia()));
+//            visualizzaGiudizi(r);
+//        }
+//    }
+
+    public static ArrayList<Object> leggi (int op) {
+        // 1: cliente
+        // 2: ristoratore
+        if (op == 1) {
+            return leggiClienti();
+        } else if (op == 2) {
+            return leggiRistoratori();
+        } else return null;
     }
 
     /**

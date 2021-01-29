@@ -9,10 +9,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 
 import java.util.ArrayList;
 
 public class LoggedUserViewController {
+
+    @FXML
+    private AnchorPane anchorPane;
 
     @FXML
     private TableView<Object> tabellaRistoratori;
@@ -22,6 +26,15 @@ public class LoggedUserViewController {
 
     @FXML
     private TableColumn<Object, String> colonnaIndirizzo;
+
+    @FXML
+    private TableColumn<Object, String> colonnaTipoIndirizzo;
+
+    @FXML
+    private TableColumn<Object, String> colonnaNomeIndirizzo;
+
+    @FXML
+    private TableColumn<Object, String> colonnaCivico;
 
     @FXML
     private TableColumn<Object, String> colonnaComune;
@@ -44,7 +57,10 @@ public class LoggedUserViewController {
 
     public void initialize() {
         colonnaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        colonnaIndirizzo.setCellValueFactory(new PropertyValueFactory<>("indirizzo"));
+//        colonnaIndirizzo.setCellValueFactory(new PropertyValueFactory<>("indirizzo"));
+        colonnaTipoIndirizzo.setCellValueFactory(new PropertyValueFactory<>("tipoIndirizzo"));
+        colonnaNomeIndirizzo.setCellValueFactory(new PropertyValueFactory<>("nomeIndirizzo"));
+        colonnaCivico.setCellValueFactory(new PropertyValueFactory<>("civico"));
         colonnaComune.setCellValueFactory(new PropertyValueFactory<>("comune"));
         colonnaProvincia.setCellValueFactory(new PropertyValueFactory<>("provincia"));
         colonnaCap.setCellValueFactory(new PropertyValueFactory<>("cap"));
@@ -58,7 +74,7 @@ public class LoggedUserViewController {
             return row ;
         });
 
-        ArrayList<Object> ristoratoriTemp = EatAdvisor.leggiRistoratori();
+        ArrayList<Object> ristoratoriTemp = EatAdvisor.leggi(2);
         if (ristoratoriTemp != null) ristoratori = FXCollections.observableArrayList(ristoratoriTemp);
 
         tabellaRistoratori.setItems(ristoratori);

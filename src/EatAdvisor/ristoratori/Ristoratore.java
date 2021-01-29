@@ -75,6 +75,8 @@ public class Ristoratore extends EatAdvisor implements java.io.Serializable {
         return nomeIndirizzo;
     }
 
+//    public String getIndirizzo() { return tipoIndirizzo + " " + nomeIndirizzo + " " + civico; }
+
     /**
      * @return civico del ristorante
      */
