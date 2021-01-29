@@ -115,44 +115,17 @@ public class MainViewClienteController {
         if (haveToLogin) {
             if (checkNicknameAndPassword(nicknameField.getText(), passwordField.getText())) {
                 loginButton.setDisable(false);
-                loginButton.setOnMouseClicked(event1 -> {
-                    try {
-                        Stage stage = (Stage) anchorPane.getScene().getWindow();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedUserView.fxml"));
-                        Parent newRoot = loader.load();
-                        LoggedUserViewController loggedUserViewController = loader.getController();
-                        loggedUserViewController.setUser(EatAdvisor.cercaCliente(
-                                nicknameField.getText(), passwordField.getText()));
-
-                        Scene newScene = new Scene(newRoot);
-                        stage.setScene(newScene);
-                        stage.setMinWidth(600);
-                        stage.setMinHeight(400);
-//                        stage.setResizable(false);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                });
+                loginButton.setOnMouseClicked(event1 ->
+                        EatAdvisor.changeToLoggedView(getClass().getResource("LoggedUserView.fxml"),
+                                anchorPane, EatAdvisor.cercaCliente(
+                                nicknameField.getText(), passwordField.getText())));
             } else {
                 continueButton.setDisable(true);
                 continueLabel.setVisible(false);
 
             }
         } else {
-            try {
-                Stage stage = (Stage) anchorPane.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedUserView.fxml"));
-                Parent newRoot = loader.load();
-                LoggedUserViewController loggedUserViewController = loader.getController();
-                loggedUserViewController.setUser(null);
-                Scene newScene = new Scene(newRoot);
-                stage.setScene(newScene);
-                stage.setMinWidth(600);
-                stage.setMinHeight(400);
-//                stage.setResizable(false);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            EatAdvisor.changeToLoggedView(getClass().getResource("LoggedUserView.fxml"), anchorPane, null);
         }
     }
 

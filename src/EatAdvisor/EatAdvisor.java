@@ -1,12 +1,19 @@
 package EatAdvisor;
 
 import EatAdvisor.clienti.Cliente;
+import EatAdvisor.clienti.LoggedUserViewController;
 import EatAdvisor.ristoratori.Ristoratore;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -710,6 +717,26 @@ public class EatAdvisor {
 //            visualizzaGiudizi(r);
 //        }
 //    }
+
+    public static void changeToLoggedView(URL fxml, AnchorPane anchorPane, Cliente c) {
+        try {
+            Stage stage = (Stage) anchorPane.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(fxml);
+            Parent newRoot = loader.load();
+            LoggedUserViewController loggedUserViewController = loader.getController();
+            loggedUserViewController.setUser(c);
+
+            Scene newScene = new Scene(newRoot);
+            stage.setScene(newScene);
+            stage.setMinWidth(1118);
+            stage.setMinHeight(600);
+            stage.setResizable(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    
 
     public static ArrayList<Object> leggi (int op) {
         // 1: cliente

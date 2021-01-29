@@ -2,14 +2,10 @@ package EatAdvisor.clienti;
 
 import EatAdvisor.EatAdvisor;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 public class ViewRegistrazioneController {
 
@@ -96,21 +92,7 @@ public class ViewRegistrazioneController {
                 cliente.setEmail(textFieldEmail.getText().toLowerCase());
                 EatAdvisor.registra(cliente, 1);
 
-                try {
-                    Stage stage = (Stage) anchorPane.getScene().getWindow();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedUserView.fxml"));
-                    Parent newRoot = loader.load();
-                    LoggedUserViewController loggedUserViewController = loader.getController();
-                    loggedUserViewController.setUser(cliente);
-
-                    Scene newScene = new Scene(newRoot);
-                    stage.setScene(newScene);
-                    stage.setMinWidth(600);
-                    stage.setMinHeight(400);
-//                    stage.setResizable(false);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                EatAdvisor.changeToLoggedView(getClass().getResource("LoggedUserView.fxml"), anchorPane, cliente);
             });
         } else {
             registerButton.setDisable(true);
