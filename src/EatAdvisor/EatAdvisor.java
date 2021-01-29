@@ -683,22 +683,22 @@ public class EatAdvisor {
 //        }
 //    }
 
-    /**
-     * Metodo statico che riceve un arraylist di ristoranti e un intero n maggiore di 0.
-     * Ritorna il ristorante n-esimo
-     *
-     * @param ristoratori arraylist dal quale selezionare un ristorante
-     * @param n           ristorante da selezionare
-     * @return ristorante selezionato
-     */
-    public static Ristoratore selezionaRistorante(ArrayList<Ristoratore> ristoratori, int n) {
-        n--;
-        if (n >= 0 && n < ristoratori.size()) {
-            return ristoratori.get(n);
-        } else {
-            return null;
-        }
-    }
+//    /**
+//     * Metodo statico che riceve un arraylist di ristoranti e un intero n maggiore di 0.
+//     * Ritorna il ristorante n-esimo
+//     *
+//     * @param ristoratori arraylist dal quale selezionare un ristorante
+//     * @param n           ristorante da selezionare
+//     * @return ristorante selezionato
+//     */
+//    public static Ristoratore selezionaRistorante(ArrayList<Ristoratore> ristoratori, int n) {
+//        n--;
+//        if (n >= 0 && n < ristoratori.size()) {
+//            return ristoratori.get(n);
+//        } else {
+//            return null;
+//        }
+//    }
 
 //    /**
 //     * Metodo statico che visualizza le informazioni del ristorante selezionato

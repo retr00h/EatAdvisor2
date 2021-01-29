@@ -6,11 +6,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
@@ -55,6 +55,33 @@ public class LoggedUserViewController {
     @FXML
     private Button bottoneCerca;
 
+    @FXML
+    private Text dettagliRistorante;
+
+    @FXML
+    private Text textNome;
+
+    @FXML
+    private Text textIndirizzo;
+
+    @FXML
+    private Text textTipologia;
+
+    @FXML
+    private Text textGiudizi;
+
+    @FXML
+    private Text nomeRistorante;
+
+    @FXML
+    private Text indirizzoRistorante;
+
+    @FXML
+    private Text tipologiaRistorante;
+
+    @FXML
+    private Text mediaGiudiziRistorante;
+
     private Cliente cliente;
     private ObservableList<Object> ristoratoriFull;
 
@@ -63,6 +90,9 @@ public class LoggedUserViewController {
     }
 
     public void initialize() {
+        if (cliente == null) {
+            // TODO: settare invisibile il bottone per aggiungere un giudizio
+        }
 
         bottoneCerca.setOnMouseClicked(new HandlerBottone());
 
@@ -79,7 +109,6 @@ public class LoggedUserViewController {
         tabellaRistoratori.setRowFactory( x -> {
             TableRow<Object> row = new TableRow<Object>();
             row.setOnMouseClicked(event -> {
-                // TODO: mostra i dati del ristorante (overhaul di EatAdvisor.selezionaRistorante() )
                 TableRow<Object> tableRow = (TableRow<Object>) event.getSource();
                 Ristoratore r = (Ristoratore) tableRow.getItem();
 
@@ -98,8 +127,23 @@ public class LoggedUserViewController {
         cliente = c;
     }
 
-    public static void selezionaRistoratore(Ristoratore r) {
+    public void selezionaRistoratore(Ristoratore r) {
+        dettagliRistorante.setVisible(true);
+        textNome.setVisible(true);
+        textIndirizzo.setVisible(true);
+        textTipologia.setVisible(true);
+        textGiudizi.setVisible(true);
 
+        nomeRistorante.setText(r.getNome());
+        indirizzoRistorante.setText(r.getTipoIndirizzo() + " " + r.getNomeIndirizzo() + " " + r.getCivico() + ", " +
+                r.getComune() + ", " + r.getProvincia() + ", " + r.getCap());
+        tipologiaRistorante.setText(r.getTipologia());
+        // TODO: estrarre i giudizi dal ristorante e calcolarne la media
+
+        nomeRistorante.setVisible(true);
+        indirizzoRistorante.setVisible(true);
+        tipologiaRistorante.setVisible(true);
+        mediaGiudiziRistorante.setVisible(true);
     }
 
     private class HandlerBottone implements EventHandler<MouseEvent> {
