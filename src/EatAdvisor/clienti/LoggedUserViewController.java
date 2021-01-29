@@ -6,12 +6,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class LoggedUserViewController {
@@ -54,6 +60,9 @@ public class LoggedUserViewController {
 
     @FXML
     private Button bottoneCerca;
+
+    @FXML
+    private GridPane bottomGridPane;
 
     @FXML
     private Text dettagliRistorante;
@@ -100,7 +109,8 @@ public class LoggedUserViewController {
 
     public void initialize() {
 
-        bottoneCerca.setOnMouseClicked(new HandlerBottone());
+        bottoneCerca.setOnMouseClicked(new HandlerBottoneRicerca());
+        bottoneAggiungiGiudizio.setOnMouseClicked(new HandlerBottoneGiudizio());
 
         colonnaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 //        colonnaIndirizzo.setCellValueFactory(new PropertyValueFactory<>("indirizzo"));
@@ -135,6 +145,7 @@ public class LoggedUserViewController {
     }
 
     public void selezionaRistoratore(Ristoratore r) {
+        bottomGridPane.setGridLinesVisible(true);
         dettagliRistorante.setVisible(true);
         textNome.setVisible(true);
         textIndirizzo.setVisible(true);
@@ -155,15 +166,41 @@ public class LoggedUserViewController {
         dettagliGiudizi.setVisible(true);
         bottoneAggiungiGiudizio.setVisible(true);
 
-        // TODO: sistemare il bottone (rimane disabilitato anche se l'utente è loggato)
-
         if (cliente == null) {
             bottoneAggiungiGiudizio.setDisable(true);
             textRegistrati.setVisible(true);
         }
     }
 
-    private class HandlerBottone implements EventHandler<MouseEvent> {
+    private class HandlerBottoneGiudizio implements EventHandler<MouseEvent> {
+        // TODO: implementa funzionalità di giudizio
+        @Override
+        public void handle(MouseEvent event) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("DialogAggiungiGiudizio.fxml"));
+                Parent parent = loader.load();
+                DialogAggiungiGiudizioController dialogController = loader.getController();
+//                dialogController.setAppMainObservableList(tvObservableList);
+
+                Scene scene = new Scene(parent, 300, 200);
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(scene);
+                stage.showAndWait();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+
+
+            // TODO: implementare metodo di scrittura giudizio, che userà il seguente:
+
+            // TODO: metodo di aggiornamento della lista di ristoratori (da implementare)
+        }
+    }
+
+    private class HandlerBottoneRicerca implements EventHandler<MouseEvent> {
         // TODO: implementa ricerca
         @Override
         public void handle(MouseEvent event) {
