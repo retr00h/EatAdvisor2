@@ -48,7 +48,7 @@
                </graphic></TableColumn>
             <TableColumn editable="false" prefWidth="70.0" resizable="false" sortable="false">
                <graphic>
-                  <Button fx:id="bottoneCerca" mnemonicParsing="false" text="Cerca" />
+                  <Button fx:id="bottoneCerca" defaultButton="true" disable="true" mnemonicParsing="false" text="Cerca" />
                </graphic></TableColumn>
             </columns>
         </TableView>
