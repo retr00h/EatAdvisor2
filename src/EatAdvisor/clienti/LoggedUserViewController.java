@@ -136,6 +136,10 @@ public class LoggedUserViewController {
             return row ;
         });
 
+        textFieldRicerca.setOnKeyReleased(event -> {
+            // TODO: implementare controllo (la stringa deve contenere AL MASSIMO 1 ';')
+        });
+
         ArrayList<Object> ristoratoriTemp = EatAdvisor.leggi(2);
         if (ristoratoriTemp != null) ristoratoriFull = FXCollections.observableArrayList(ristoratoriTemp);
 
@@ -208,42 +212,34 @@ public class LoggedUserViewController {
     }
 
     private class HandlerBottoneRicerca implements EventHandler<MouseEvent> {
-        // TODO: implementa ricerca
         @Override
         public void handle(MouseEvent event) {
-            ObservableList<Object> lista;
-            switch (comboBoxRicerca.getValue()) {
-                case "Nome ristorante":
-                    lista = cercaRistorantePerNome(textFieldRicerca.getText());
-                    if (lista == null) {
-                        tabellaRistoratori.setItems(ristoratoriFull);
-                        mostraDialogNessunRistoranteTrovato();
-                    } else {
-                        tabellaRistoratori.setItems(FXCollections.observableArrayList(lista));
-                    }
-                break;
-                case "Tipologia ristorante":
-                    lista = cercaRistorantePerTipologia(textFieldRicerca.getText());
-                    if (lista == null) {
-                        tabellaRistoratori.setItems(ristoratoriFull);
-                        mostraDialogNessunRistoranteTrovato();
-                    } else {
-                        tabellaRistoratori.setItems(FXCollections.observableArrayList(lista));
-                    }
-                break;
-                case "Comune ristorante":
-                    lista = cercaRistorantePerComune(textFieldRicerca.getText());
-                    if (lista == null) {
-                        tabellaRistoratori.setItems(ristoratoriFull);
-                        mostraDialogNessunRistoranteTrovato();
-                    } else {
-                        tabellaRistoratori.setItems(FXCollections.observableArrayList(lista));
-                    }
-                break;
-                case "Comune E tipologia ristorante":
-                    System.out.println("DDDD");
-                break;
-                default: break;
+            if (textFieldRicerca.getText().equals("")) {
+                // TODO: mostra dialog di errore
+            } else {
+                ObservableList<Object> lista = null;
+                switch (comboBoxRicerca.getValue()) {
+                    case "Nome ristorante":
+                        lista = cercaRistorantePerNome(textFieldRicerca.getText());
+                        break;
+                    case "Tipologia ristorante":
+                        lista = cercaRistorantePerTipologia(textFieldRicerca.getText());
+                        break;
+                    case "Comune ristorante":
+                        lista = cercaRistorantePerComune(textFieldRicerca.getText());
+                        break;
+                    case "Comune E tipologia ristorante":
+//                    lista = cercaRistorantePerComuneETipologia(textFieldRicerca.getText());
+                        break;
+                    default: break;
+                }
+
+                if (lista == null) {
+                    tabellaRistoratori.setItems(ristoratoriFull);
+                    mostraDialogNessunRistoranteTrovato();
+                } else {
+                    tabellaRistoratori.setItems(FXCollections.observableArrayList(lista));
+                }
             }
         }
     }
@@ -270,16 +266,20 @@ public class LoggedUserViewController {
         }
     }
 
-    private ObservableList<Object> cercaRistorantePerNome (String nome) {
-        // TODO: aggiungi ricerca per più nomi (separati da ',')
+    private ObservableList<Object> cercaRistorantePerNome (String arg) {
         ArrayList<Object> ristoranti = null;
+
+        String[] nomi = arg.split(",");
 
         for (Object o : ristoratoriFull) {
             Ristoratore r = (Ristoratore) o;
-            if (r.getNome().toLowerCase().contains(nome.toLowerCase())) {
-                if (ristoranti == null) ristoranti = new ArrayList<Object>();
-                ristoranti.add(o);
+            for (String nome : nomi) {
+                if (r.getNome().toLowerCase().contains(nome.toLowerCase())) {
+                    if (ristoranti == null) ristoranti = new ArrayList<Object>();
+                    ristoranti.add(o);
+                }
             }
+//            rimuoviDuplicati(ristoranti);
         }
         mostraDettagliRistorante(false);
         if (ristoranti == null) {
@@ -287,58 +287,78 @@ public class LoggedUserViewController {
         } else return FXCollections.observableArrayList(ristoranti);
     }
 
-    private ObservableList<Object> cercaRistorantePerTipologia (String tipologia) {
-        // TODO: aggiungi ricerca per più tipologie (separati da ',')
+    private ObservableList<Object> cercaRistorantePerTipologia (String arg) {
         ArrayList<Object> ristoranti = null;
+
+        String[] tipologie = arg.split(",");
 
         for (Object o : ristoratoriFull) {
             Ristoratore r = (Ristoratore) o;
-            if (r.getTipologia().toLowerCase().contains(tipologia.toLowerCase())) {
-                if (ristoranti == null) ristoranti = new ArrayList<Object>();
-                ristoranti.add(o);
+            for (String tipologia : tipologie) {
+                if (r.getTipologia().toLowerCase().contains(tipologia.toLowerCase())) {
+                    if (ristoranti == null) ristoranti = new ArrayList<Object>();
+                    ristoranti.add(o);
+                }
             }
         }
+//            rimuoviDuplicati(ristoranti);
         mostraDettagliRistorante(false);
         if (ristoranti == null) {
             return null;
         } else return FXCollections.observableArrayList(ristoranti);
     }
 
-    private ObservableList<Object> cercaRistorantePerComune(String comune) {
-        // TODO: aggiungi ricerca per più comuni (separati da ',')
+    private ObservableList<Object> cercaRistorantePerComune(String arg) {
         ArrayList<Object> ristoranti = null;
+
+        String[] comuni = arg.split(",");
 
         for (Object o : ristoratoriFull) {
             Ristoratore r = (Ristoratore) o;
-            if (r.getComune().toLowerCase().contains(comune.toLowerCase())) {
-                if (ristoranti == null) ristoranti = new ArrayList<Object>();
-                ristoranti.add(o);
+            for (String comune : comuni) {
+                if (r.getComune().toLowerCase().contains(comune.toLowerCase())) {
+                    if (ristoranti == null) ristoranti = new ArrayList<Object>();
+                    ristoranti.add(o);
+                }
             }
         }
+//        rimuoviDuplicati(ristoranti);
         mostraDettagliRistorante(false);
         if (ristoranti == null) {
             return null;
-//            tabellaRistoratori.setItems(ristoratoriFull);
-//            mostraDialogNessunRistoranteTrovato();
-        } else return FXCollections.observableArrayList(ristoranti); //tabellaRistoratori.setItems(FXCollections.observableArrayList(ristoranti));
+        } else return FXCollections.observableArrayList(ristoranti);
     }
 
-//    private void cercaRistorantePerComuneETipologia(String args) {
-//        // TODO: aggiungi ricerca per più comuni (separati da ',')
-//        ArrayList<Object> ristoranti = null;
+//    private ObservableList<Object> cercaRistorantePerComuneETipologia(String args) {
+//        if (args.length() == 0) return null;
+//        int pos = args.indexOf(',');
+//        String comune = args.substring(0, pos);
+//        String tipologia = args.substring(pos + 1);
 //
-//        for (Object o : ristoratoriFull) {
+//        ObservableList<Object> ristoranti = cercaRistorantePerComune(comune);
+//
+//        if (ristoranti == null) return null;
+//
+//        for (Object o : ristoranti) {
 //            Ristoratore r = (Ristoratore) o;
-//            if (r.getComune().toLowerCase().contains(comune.toLowerCase())) {
-//                if (ristoranti == null) ristoranti = new ArrayList<Object>();
-//                ristoranti.add(o);
+//            if (!r.getTipologia().toLowerCase().contains(tipologia.toLowerCase())) {
+//                ristoranti.remove(o);
+//            }
+//            if (ristoranti.size() == 0) return null;
+//        }
+//        return ristoranti;
+//    }
+
+//    private void rimuoviDuplicati(ArrayList<Object> ristoranti) {
+//        for (int i = 0; i < ristoranti.size(); i++) {
+//            for (int j = 0; j < ristoranti.size(); j++) {
+//                if (i != j) {
+//                    Ristoratore r1 = (Ristoratore) ristoranti.get(i);
+//                    Ristoratore r2 = (Ristoratore) ristoranti.get(j);
+//                    if (r1.equals(r2)) ristoranti.remove(j);
+//                }
 //            }
 //        }
-//        mostraDettagliRistorante(false);
-//        if (ristoranti == null) {
-//            tabellaRistoratori.setItems(ristoratoriFull);
-//            mostraDialogNessunRistoranteTrovato();
-//        } else tabellaRistoratori.setItems(FXCollections.observableArrayList(ristoranti));
 //    }
 
     public void mostraDialogNessunRistoranteTrovato() {
