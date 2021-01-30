@@ -101,8 +101,23 @@ public class LoggedUserViewController {
     @FXML
     private Text textRegistrati;
 
+    @FXML
+    private TableView<Giudizio> tabellaGiudizi;
+
+    @FXML
+    private TableColumn<Giudizio, String> colonnaAutore;
+
+    @FXML
+    private TableColumn<Giudizio, String> colonnaVoto;
+
+    @FXML
+    private TableColumn<Giudizio, String> colonnaCommento;
+
     private Cliente cliente;
     private ObservableList<Object> ristoratoriFull;
+
+    private LoggedUserViewController loggedUserViewController;
+    private Ristoratore ristoratoreSelezionato = null;
     private Giudizio nuovoGiudizio = null;
 
     public LoggedUserViewController () {
@@ -110,13 +125,14 @@ public class LoggedUserViewController {
     }
 
     public void initialize() {
+        loggedUserViewController = this;
+
         bottoneCerca.setOnMouseClicked(new HandlerBottoneRicerca());
         bottoneAggiungiGiudizio.setOnMouseClicked(new HandlerBottoneGiudizio());
 
         comboBoxRicerca.setOnAction(event -> bottoneCerca.setDisable(false));
 
         colonnaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-//        colonnaIndirizzo.setCellValueFactory(new PropertyValueFactory<>("indirizzo"));
         colonnaTipoIndirizzo.setCellValueFactory(new PropertyValueFactory<>("tipoIndirizzo"));
         colonnaNomeIndirizzo.setCellValueFactory(new PropertyValueFactory<>("nomeIndirizzo"));
         colonnaCivico.setCellValueFactory(new PropertyValueFactory<>("civico"));
@@ -148,11 +164,19 @@ public class LoggedUserViewController {
     }
 
     public void selezionaRistoratore(Ristoratore r) {
+        ristoratoreSelezionato = r;
         nomeRistorante.setText(r.getNome());
         indirizzoRistorante.setText(r.getTipoIndirizzo() + " " + r.getNomeIndirizzo() + " " + r.getCivico() + ", " +
                 r.getComune() + ", " + r.getProvincia() + ", " + r.getCap());
         tipologiaRistorante.setText(r.getTipologia());
         // TODO: estrarre i giudizi dal ristorante e calcolarne la media
+
+        colonnaAutore.setCellValueFactory(new PropertyValueFactory<>("autore"));
+        colonnaVoto.setCellValueFactory(new PropertyValueFactory<>("voto"));
+        colonnaCommento.setCellValueFactory(new PropertyValueFactory<>("commento"));
+        tabellaGiudizi.setRowFactory( x -> new TableRow<Giudizio>());
+        Giudizio[] giudizi = r.getGiudizi();
+        if (giudizi != null) tabellaGiudizi.setItems(FXCollections.observableArrayList(giudizi));
 
         mostraDettagliRistorante(true);
 //        bottomGridPane.setGridLinesVisible(true);
@@ -183,7 +207,7 @@ public class LoggedUserViewController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("DialogAggiungiGiudizio.fxml"));
                 Parent parent = loader.load();
                 DialogAggiungiGiudizioController dialogController = loader.getController();
-                dialogController.setGiudizio(nuovoGiudizio);
+                dialogController.setLoggedUserViewController(loggedUserViewController);
                 dialogController.setAutore(cliente.getNickname());
 
                 Scene scene = new Scene(parent);
@@ -194,17 +218,16 @@ public class LoggedUserViewController {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(scene);
                 stage.showAndWait();
-
-                System.out.println("" + nuovoGiudizio.getAutore() + nuovoGiudizio.getVoto());
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            // TODO: trova un modo di far comunicare il dialog con la finestra sottostante
+            ristoratoreSelezionato.addGiudizio(nuovoGiudizio);
+            nuovoGiudizio = null;
 
-            // TODO: implementare metodo di scrittura giudizio, che userà il seguente:
+            Ristoratore r = EatAdvisor.cercaRistoratore(ristoratoreSelezionato.getNome());
 
-            // TODO: metodo di aggiornamento della lista di ristoratori (da implementare)
+            EatAdvisor.aggiorna(r);
         }
     }
 
@@ -384,5 +407,9 @@ public class LoggedUserViewController {
         alert.setContentText("Perfavore, controlla i parametri di ricerca e riprova");
 
         alert.showAndWait();
+    }
+
+    public void setGiudizio(Giudizio g) {
+        nuovoGiudizio = g;
     }
 }

@@ -23,8 +23,8 @@ public class DialogAggiungiGiudizioController {
 
     private int caratteriRimanenti = 256;
     private String autore;
-    private Giudizio nuovoGiudizio;
-
+    private Giudizio giudizio;
+    private LoggedUserViewController loggedUserViewController;
 
     public DialogAggiungiGiudizioController () {
 
@@ -34,9 +34,9 @@ public class DialogAggiungiGiudizioController {
         bottoneAggiungiGiudizio.setOnMouseClicked(event -> {
 
             if (caratteriRimanenti == 256) {
-                nuovoGiudizio = new Giudizio(autore, (int) sliderVoto.getValue());
+                loggedUserViewController.setGiudizio(new Giudizio(autore, (int) sliderVoto.getValue(), ""));
             } else {
-                nuovoGiudizio = new Giudizio(autore, (int) sliderVoto.getValue(), textAreaCommento.getText());
+                loggedUserViewController.setGiudizio(new Giudizio(autore, (int) sliderVoto.getValue(), textAreaCommento.getText()));
             }
 
             Node source = (Node)  event.getSource();
@@ -44,7 +44,7 @@ public class DialogAggiungiGiudizioController {
             stage.close();
         });
 
-        sliderVoto.setOnMouseClicked(event -> bottoneAggiungiGiudizio.setDisable(false));
+        sliderVoto.setOnMouseDragged(event -> bottoneAggiungiGiudizio.setDisable(false));
 
         textAreaCommento.setTextFormatter(new TextFormatter<String>(change ->
                 change.getControlNewText().length() <= 256 ? change : null));
@@ -58,11 +58,12 @@ public class DialogAggiungiGiudizioController {
 
     }
 
-    public void setGiudizio(Giudizio g) {
-        nuovoGiudizio = g;
-    }
 
     public void setAutore (String autore) {
         this.autore = autore;
+    }
+
+    public void setLoggedUserViewController(LoggedUserViewController controller) {
+        loggedUserViewController = controller;
     }
 }

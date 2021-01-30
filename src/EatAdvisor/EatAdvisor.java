@@ -793,15 +793,6 @@ public class EatAdvisor {
         return ristoranti;
     }
 
-//    private static ArrayList<Object> leggi(int op) {
-//        if (op == 1) {
-//            return leggiClienti();
-//        } else if (op == 2) {
-//            return leggiRistoratori();
-//        }
-//        return null;
-//    }
-
     public static void scrivi(ArrayList<Object> o, int op) {
         // 1: cliente
         // 2. ristoratore
@@ -814,7 +805,7 @@ public class EatAdvisor {
         } else if (op == 2) {
             ArrayList<Ristoratore> ristoratori = new ArrayList<>();
             for (Object ob : o) {
-                ristoratori.add((Ristoratore) ob);
+                ristoratori.add(0, (Ristoratore) ob);
             }
             scriviRistoratori(ristoratori);
         }
@@ -857,6 +848,19 @@ public class EatAdvisor {
                 Cliente clienteRegistrato = (Cliente) o;
                 if (nickname.equals(clienteRegistrato.getNickname()) && password.equals(clienteRegistrato.getPassword())) {
                     return clienteRegistrato;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static Ristoratore cercaRistoratore(String nome) {
+        ArrayList<Object> ristoratori = leggi(2);
+        if (ristoratori != null){
+            for (Object o : ristoratori) {
+                Ristoratore r = (Ristoratore) o;
+                if (nome.equals(r.getNome()) ) {
+                    return r;
                 }
             }
         }
@@ -1002,4 +1006,15 @@ public class EatAdvisor {
         }
     }
 
+    public static void aggiorna(Ristoratore r) {
+        ArrayList<Object> ristoratori = leggi(2);
+
+        for (int i = 0; i < ristoratori.size(); i++) {
+            Ristoratore oldRistoratore = (Ristoratore) ristoratori.get(i);
+            if (oldRistoratore.equals(r)) {
+                ristoratori.set(i, r);
+                scrivi(ristoratori,2);
+            }
+        }
+    }
 }
