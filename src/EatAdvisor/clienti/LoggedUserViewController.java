@@ -2,6 +2,7 @@ package EatAdvisor.clienti;
 
 import EatAdvisor.EatAdvisor;
 import EatAdvisor.ristoratori.Ristoratore;
+import EatAdvisor.Giudizio;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -102,6 +103,7 @@ public class LoggedUserViewController {
 
     private Cliente cliente;
     private ObservableList<Object> ristoratoriFull;
+    private Giudizio nuovoGiudizio = null;
 
     public LoggedUserViewController () {
 
@@ -173,26 +175,30 @@ public class LoggedUserViewController {
     }
 
     private class HandlerBottoneGiudizio implements EventHandler<MouseEvent> {
-        // TODO: implementa funzionalità di giudizio
         @Override
         public void handle(MouseEvent event) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("DialogAggiungiGiudizio.fxml"));
                 Parent parent = loader.load();
                 DialogAggiungiGiudizioController dialogController = loader.getController();
-//                dialogController.setAppMainObservableList(tvObservableList);
+                dialogController.setGiudizio(nuovoGiudizio);
+                dialogController.setAutore(cliente.getNickname());
 
-                Scene scene = new Scene(parent, 300, 200);
+                Scene scene = new Scene(parent);
                 Stage stage = new Stage();
+                stage.setResizable(false);
+                stage.setTitle("EatAdvisor - Aggiungi un giudizio");
+
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(scene);
                 stage.showAndWait();
+
+                System.out.println("" + nuovoGiudizio.getAutore() + nuovoGiudizio.getVoto());
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-
-
+            // TODO: trova un modo di far comunicare il dialog con la finestra sottostante
 
             // TODO: implementare metodo di scrittura giudizio, che userà il seguente:
 

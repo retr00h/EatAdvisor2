@@ -3,18 +3,18 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <!-- TODO: cambiare AnchorPane in GridPane -->
 
-<AnchorPane minHeight="300.0" minWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EatAdvisor.clienti.DialogAggiungiGiudizioController">
+<AnchorPane minHeight="300.0" minWidth="500.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EatAdvisor.clienti.DialogAggiungiGiudizioController">
     <children>
         <VBox alignment="CENTER" layoutX="131.0" layoutY="50.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
             <children>
-            <HBox prefHeight="50.0" prefWidth="200.0" />
                 <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
                     <children>
-                        <Label alignment="CENTER_RIGHT" minWidth="100.0" text="Voto" />
-                  <Slider blockIncrement="1.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                        <Label alignment="CENTER_RIGHT" text="Voto" />
+                  <Slider fx:id="sliderVoto" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
                     </children>
                     <padding>
                         <Insets right="30.0" />
@@ -22,9 +22,9 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="150.0" prefWidth="390.0" spacing="10.0">
                     <children>
-                        <Label alignment="CENTER_RIGHT" minWidth="65.0" prefHeight="17.0" prefWidth="65.0" text="Commento" />
-                  <TextArea prefHeight="50.0" prefWidth="238.0" />
-                  <Label prefHeight="17.0" prefWidth="218.0" text="Caratteri rimanenti: 256" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Commento&#10;(facoltativo)" textAlignment="RIGHT" wrappingWidth="111.5078125" />
+                  <TextArea fx:id="textAreaCommento" prefHeight="150.0" prefWidth="287.0" wrapText="true" />
+                  <Label fx:id="labelCaratteriRimanenti" prefHeight="17.0" prefWidth="218.0" text="Caratteri rimanenti: 256" />
                     </children>
                     <padding>
                         <Insets right="30.0" />
@@ -32,7 +32,7 @@
                 </HBox>
                 <HBox alignment="CENTER_RIGHT">
                     <children>
-                        <Button mnemonicParsing="false" text="Aggiungi giudizio" />
+                        <Button fx:id="bottoneAggiungiGiudizio" disable="true" mnemonicParsing="false" prefWidth="110.0" text="Aggiungi giudizio" />
                     </children>
                     <opaqueInsets>
                         <Insets />
@@ -41,7 +41,6 @@
                         <Insets right="30.0" />
                     </padding>
                 </HBox>
-            <HBox prefHeight="50.0" prefWidth="390.0" />
             </children>
         </VBox>
     </children>
