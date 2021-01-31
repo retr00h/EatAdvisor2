@@ -790,6 +790,7 @@ public class EatAdvisor {
         } else {
             System.out.println("Non ci sono ristoratori registrati.");
         }
+
         return ristoranti;
     }
 
@@ -1013,8 +1014,8 @@ public class EatAdvisor {
             Ristoratore oldRistoratore = (Ristoratore) ristoratori.get(i);
             if (oldRistoratore.equals(r)) {
                 ristoratori.set(i, r);
-                scrivi(ristoratori,2);
             }
         }
+        scrivi(ristoratori,2);
     }
 }

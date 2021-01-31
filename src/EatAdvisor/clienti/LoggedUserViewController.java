@@ -17,8 +17,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import java.lang.Double;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class LoggedUserViewController {
@@ -169,35 +171,41 @@ public class LoggedUserViewController {
         indirizzoRistorante.setText(r.getTipoIndirizzo() + " " + r.getNomeIndirizzo() + " " + r.getCivico() + ", " +
                 r.getComune() + ", " + r.getProvincia() + ", " + r.getCap());
         tipologiaRistorante.setText(r.getTipologia());
-        // TODO: estrarre i giudizi dal ristorante e calcolarne la media
 
         colonnaAutore.setCellValueFactory(new PropertyValueFactory<>("autore"));
         colonnaVoto.setCellValueFactory(new PropertyValueFactory<>("voto"));
         colonnaCommento.setCellValueFactory(new PropertyValueFactory<>("commento"));
+        colonnaCommento.setCellFactory(tc -> {
+            TableCell<Giudizio, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(colonnaCommento.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell ;
+        });
+
         tabellaGiudizi.setRowFactory( x -> new TableRow<Giudizio>());
+
         Giudizio[] giudizi = r.getGiudizi();
-        if (giudizi != null) tabellaGiudizi.setItems(FXCollections.observableArrayList(giudizi));
+        ObservableList<Giudizio> listaGiudizi;
+
+        if (giudizi != null) {
+            double media = 0;
+            for (Giudizio g : giudizi) {
+                media += g.getVoto();
+            }
+            media /= giudizi.length;
+
+            listaGiudizi = FXCollections.observableArrayList(giudizi);
+            mediaGiudiziRistorante.setText("" + media);
+            tabellaGiudizi.setItems(listaGiudizi);
+        } else {
+            mediaGiudiziRistorante.setText("Nessun giudizio");
+            tabellaGiudizi.setItems(null);
+        }
 
         mostraDettagliRistorante(true);
-//        bottomGridPane.setGridLinesVisible(true);
-//        dettagliRistorante.setVisible(true);
-//        textNome.setVisible(true);
-//        textIndirizzo.setVisible(true);
-//        textTipologia.setVisible(true);
-//        textGiudizi.setVisible(true);
-//
-//        nomeRistorante.setVisible(true);
-//        indirizzoRistorante.setVisible(true);
-//        tipologiaRistorante.setVisible(true);
-//        mediaGiudiziRistorante.setVisible(true);
-//
-//        dettagliGiudizi.setVisible(true);
-//        bottoneAggiungiGiudizio.setVisible(true);
-//
-//        if (cliente == null) {
-//            bottoneAggiungiGiudizio.setDisable(true);
-//            textRegistrati.setVisible(true);
-//        }
     }
 
     private class HandlerBottoneGiudizio implements EventHandler<MouseEvent> {
@@ -222,12 +230,13 @@ public class LoggedUserViewController {
                 e.printStackTrace();
             }
 
-            ristoratoreSelezionato.addGiudizio(nuovoGiudizio);
-            nuovoGiudizio = null;
-
-            Ristoratore r = EatAdvisor.cercaRistoratore(ristoratoreSelezionato.getNome());
-
-            EatAdvisor.aggiorna(r);
+            if (nuovoGiudizio != null) {
+                ristoratoreSelezionato.addGiudizio(nuovoGiudizio);
+                nuovoGiudizio = null;
+//                Ristoratore r = EatAdvisor.cercaRistoratore(ristoratoreSelezionato.getNome());
+                EatAdvisor.aggiorna(ristoratoreSelezionato);
+                selezionaRistoratore(ristoratoreSelezionato);
+            }
         }
     }
 
@@ -279,6 +288,8 @@ public class LoggedUserViewController {
 
         dettagliGiudizi.setVisible(mostra);
         bottoneAggiungiGiudizio.setVisible(mostra);
+
+        tabellaGiudizi.setVisible(mostra);
 
         if (cliente == null) {
             bottoneAggiungiGiudizio.setDisable(true);

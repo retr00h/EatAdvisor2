@@ -23,7 +23,6 @@ public class DialogAggiungiGiudizioController {
 
     private int caratteriRimanenti = 256;
     private String autore;
-    private Giudizio giudizio;
     private LoggedUserViewController loggedUserViewController;
 
     public DialogAggiungiGiudizioController () {
@@ -32,13 +31,11 @@ public class DialogAggiungiGiudizioController {
 
     public void initialize () {
         bottoneAggiungiGiudizio.setOnMouseClicked(event -> {
-
             if (caratteriRimanenti == 256) {
                 loggedUserViewController.setGiudizio(new Giudizio(autore, (int) sliderVoto.getValue(), ""));
             } else {
                 loggedUserViewController.setGiudizio(new Giudizio(autore, (int) sliderVoto.getValue(), textAreaCommento.getText()));
             }
-
             Node source = (Node)  event.getSource();
             Stage stage  = (Stage) source.getScene().getWindow();
             stage.close();
@@ -57,7 +54,6 @@ public class DialogAggiungiGiudizioController {
         });
 
     }
-
 
     public void setAutore (String autore) {
         this.autore = autore;

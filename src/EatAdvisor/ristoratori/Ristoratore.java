@@ -156,12 +156,7 @@ public class Ristoratore extends EatAdvisor implements java.io.Serializable {
     }
 
     public boolean equals(Ristoratore r) {
-        return this.nome.equals(r.nome) && this.tipoIndirizzo.equals(r.tipoIndirizzo) &&
-                this.nomeIndirizzo.equals(r.nomeIndirizzo) && this.civico.equals(r.civico) &&
-                this.comune.equals(r.comune) && this.provincia.equals(r.provincia) &&
-                this.cap.equals(r.cap) && this.telefono.equals(r.telefono) &&
-                this.tipologia.equals(r.tipologia);
-
+        return this.nome.equals(r.nome);
     }
 
 //    /**
