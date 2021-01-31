@@ -30,9 +30,6 @@ public class ControllerUserView {
     private TableColumn<Object, String> colonnaNome;
 
     @FXML
-    private TableColumn<Object, String> colonnaIndirizzo;
-
-    @FXML
     private TableColumn<Object, String> colonnaTipoIndirizzo;
 
     @FXML
@@ -231,7 +228,6 @@ public class ControllerUserView {
             if (nuovoGiudizio != null) {
                 ristoratoreSelezionato.addGiudizio(nuovoGiudizio);
                 nuovoGiudizio = null;
-//                Ristoratore r = EatAdvisor.cercaRistoratore(ristoratoreSelezionato.getNome());
                 EatAdvisor.aggiorna(ristoratoreSelezionato);
                 selezionaRistoratore(ristoratoreSelezionato);
             }
@@ -239,6 +235,19 @@ public class ControllerUserView {
     }
 
     private class HandlerBottoneRicerca implements EventHandler<MouseEvent> {
+        /*  Sintassi di ricerca:
+            Il carattere , separa i parametri di ricerca (se in una ricerca per comune inserisco "milano,varese"
+            verranno trovati tutti i ristoranti il cui comune è Milano O Varese.
+            Questo è valido per tutti i tipi di ricerca.
+
+            Nella ricerca per comune E tipologia, il carattere ; separa i comuni dalle tipologie.
+            È necessario che vengano scritti prima i comuni, e poi le tipologie.
+            È necessario che venga usato un ;
+            Esempio: la query "milano,varese;italiano,etnico" troverà tutti i ristoranti italiani O etnici, il cui comune
+            è Milano O Varese.
+
+            Le ricerche NON sono case sensitive.
+         */
         @Override
         public void handle(MouseEvent event) {
             if (textFieldRicerca.getText().equals("")) {

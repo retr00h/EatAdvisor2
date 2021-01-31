@@ -121,7 +121,9 @@ public class ControllerLoginView {
                 loginButton.setOnMouseClicked(event1 ->
                         EatAdvisor.changeToLoggedView(getClass().getResource("UserView.fxml"),
                                 anchorPane, EatAdvisor.cercaCliente(
-                                nicknameField.getText(), passwordField.getText())));
+                                    nicknameField.getText(), passwordField.getText())
+                        )
+                );
             } else {
                 continueButton.setDisable(true);
                 continueLabel.setVisible(false);

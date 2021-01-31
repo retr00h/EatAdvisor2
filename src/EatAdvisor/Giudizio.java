@@ -12,18 +12,6 @@ public class Giudizio implements java.io.Serializable {
     /**
      * Costruttore.
      * Costruisce l'oggetto Giudizio specificando
-     *
-     * @param autore
-     * @param voto
-     */
-    public Giudizio(String autore, int voto) {
-        this.autore = autore;
-        this.voto = voto;
-    }
-
-    /**
-     * Costruttore.
-     * Costruisce l'oggetto Giudizio specificando
      * @param autore
      * @param voto
      * @param commento

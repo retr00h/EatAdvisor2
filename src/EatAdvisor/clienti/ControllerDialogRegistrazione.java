@@ -6,13 +6,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class ControllerDialogRegistrazione {
-
-    @FXML
-    private AnchorPane anchorPane;
 
     @FXML
     private TextField textFieldNome;
@@ -100,7 +96,6 @@ public class ControllerDialogRegistrazione {
                 Node source = (Node)  event.getSource();
                 Stage stage  = (Stage) source.getScene().getWindow();
                 stage.close();
-//                EatAdvisor.changeToLoggedView(getClass().getResource("UserView.fxml"), anchorPane, cliente);
             });
         } else {
             registerButton.setDisable(true);

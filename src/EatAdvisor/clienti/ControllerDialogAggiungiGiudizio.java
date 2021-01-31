@@ -52,7 +52,6 @@ public class ControllerDialogAggiungiGiudizio {
 
             EatAdvisor.alert(labelCaratteriRimanenti, caratteriRimanenti != 0);
         });
-
     }
 
     public void setAutore (String autore) {
