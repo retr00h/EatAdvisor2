@@ -772,7 +772,7 @@ public class EatAdvisor {
         return utenti;
     }
 
-    public static ArrayList<Object> leggiRistoratori() {
+    private static ArrayList<Object> leggiRistoratori() {
         File f = new File(PATH_RISTORANTI);
         ArrayList<Object> ristoranti = null;
         if (f.exists() && !f.isDirectory()) {

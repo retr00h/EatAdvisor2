@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-public class ViewRegistrazioneController {
+public class DialogRegistrazioneController {
 
     @FXML
     private AnchorPane anchorPane;
@@ -53,7 +53,7 @@ public class ViewRegistrazioneController {
     private boolean provinciaOkay = false;
     private boolean emailOkay = false;
 
-    public ViewRegistrazioneController() {
+    public DialogRegistrazioneController() {
 
     }
 

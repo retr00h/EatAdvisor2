@@ -136,7 +136,7 @@ public class MainViewClienteController {
     private void registraCliente(Cliente c) {
         try {
             Stage stage = (Stage) anchorPane.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ViewRegistrazione.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("DialogRegistrazione.fxml"));
             Parent newRoot = loader.load();
             Scene newScene = new Scene(newRoot);
             stage.setScene(newScene);
@@ -144,8 +144,8 @@ public class MainViewClienteController {
             stage.setMinHeight(400);
             stage.setResizable(false);
 
-            ViewRegistrazioneController viewRegistrazioneController = loader.getController();
-            viewRegistrazioneController.setUser(c);
+            DialogRegistrazioneController dialogRegistrazioneController = loader.getController();
+            dialogRegistrazioneController.setUser(c);
         } catch (Exception e) {
             e.printStackTrace();
         }

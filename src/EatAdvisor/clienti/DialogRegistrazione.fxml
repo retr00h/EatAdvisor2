@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EatAdvisor.clienti.ViewRegistrazioneController">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EatAdvisor.clienti.DialogRegistrazioneController">
    <children>
       <Text layoutX="199.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EatAdvisor - Clienti&#10;Registrazione" textAlignment="CENTER">
          <font>
