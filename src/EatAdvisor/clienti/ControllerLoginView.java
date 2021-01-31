@@ -11,9 +11,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class MainViewClienteController {
+public class ControllerLoginView {
 
     @FXML
     private AnchorPane anchorPane;
@@ -42,7 +43,9 @@ public class MainViewClienteController {
     @FXML
     private Text registerText;
 
-    public MainViewClienteController() {
+    private Cliente cliente = null;
+
+    public ControllerLoginView() {
 
     }
 
@@ -116,7 +119,7 @@ public class MainViewClienteController {
             if (checkNicknameAndPassword(nicknameField.getText(), passwordField.getText())) {
                 loginButton.setDisable(false);
                 loginButton.setOnMouseClicked(event1 ->
-                        EatAdvisor.changeToLoggedView(getClass().getResource("LoggedUserView.fxml"),
+                        EatAdvisor.changeToLoggedView(getClass().getResource("UserView.fxml"),
                                 anchorPane, EatAdvisor.cercaCliente(
                                 nicknameField.getText(), passwordField.getText())));
             } else {
@@ -125,7 +128,7 @@ public class MainViewClienteController {
 
             }
         } else {
-            EatAdvisor.changeToLoggedView(getClass().getResource("LoggedUserView.fxml"), anchorPane, null);
+            EatAdvisor.changeToLoggedView(getClass().getResource("UserView.fxml"), anchorPane, null);
         }
     }
 
@@ -135,19 +138,30 @@ public class MainViewClienteController {
 
     private void registraCliente(Cliente c) {
         try {
-            Stage stage = (Stage) anchorPane.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("DialogRegistrazione.fxml"));
-            Parent newRoot = loader.load();
-            Scene newScene = new Scene(newRoot);
-            stage.setScene(newScene);
+            Parent parent = loader.load();
+            ControllerDialogRegistrazione dialogController = loader.getController();
+            dialogController.setControllerLoginView(this);
+            dialogController.setCliente(c);
+
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
             stage.setMinWidth(600);
             stage.setMinHeight(400);
             stage.setResizable(false);
+            stage.setTitle("EatAdvisor - Clienti - Registrati");
 
-            DialogRegistrazioneController dialogRegistrazioneController = loader.getController();
-            dialogRegistrazioneController.setUser(c);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+
+            if (cliente != null) EatAdvisor.changeToLoggedView(getClass().getResource("UserView.fxml"), anchorPane, cliente);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setCliente (Cliente c) {
+        cliente = c;
     }
 }

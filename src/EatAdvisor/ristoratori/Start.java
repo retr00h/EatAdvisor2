@@ -6,11 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class MainViewRistoratore extends Application {
+public class Start extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("MainViewRistoratore.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ViewRegistrazione.fxml"));
         primaryStage.setTitle("EatAdvisor - Ristoratori");
         primaryStage.setScene(new Scene(root));
         primaryStage.setMinWidth(600);

@@ -1,7 +1,7 @@
 package EatAdvisor;
 
 import EatAdvisor.clienti.Cliente;
-import EatAdvisor.clienti.LoggedUserViewController;
+import EatAdvisor.clienti.ControllerUserView;
 import EatAdvisor.ristoratori.Ristoratore;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -721,8 +721,8 @@ public class EatAdvisor {
             Stage stage = (Stage) anchorPane.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(fxml);
             Parent newRoot = loader.load();
-            LoggedUserViewController loggedUserViewController = loader.getController();
-            loggedUserViewController.setUser(c);
+            ControllerUserView controllerUserView = loader.getController();
+            controllerUserView.setUser(c);
 
             Scene newScene = new Scene(newRoot);
             stage.setScene(newScene);

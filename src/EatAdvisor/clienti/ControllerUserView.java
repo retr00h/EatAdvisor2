@@ -17,13 +17,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import java.lang.Double;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class LoggedUserViewController {
+public class ControllerUserView {
 
     @FXML
     private TableView<Object> tabellaRistoratori;
@@ -118,16 +116,16 @@ public class LoggedUserViewController {
     private Cliente cliente;
     private ObservableList<Object> ristoratoriFull;
 
-    private LoggedUserViewController loggedUserViewController;
+    private ControllerUserView controllerUserView;
     private Ristoratore ristoratoreSelezionato = null;
     private Giudizio nuovoGiudizio = null;
 
-    public LoggedUserViewController () {
+    public ControllerUserView() {
 
     }
 
     public void initialize() {
-        loggedUserViewController = this;
+        controllerUserView = this;
 
         bottoneCerca.setOnMouseClicked(new HandlerBottoneRicerca());
         bottoneAggiungiGiudizio.setOnMouseClicked(new HandlerBottoneGiudizio());
@@ -214,8 +212,8 @@ public class LoggedUserViewController {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("DialogAggiungiGiudizio.fxml"));
                 Parent parent = loader.load();
-                DialogAggiungiGiudizioController dialogController = loader.getController();
-                dialogController.setLoggedUserViewController(loggedUserViewController);
+                ControllerDialogAggiungiGiudizio dialogController = loader.getController();
+                dialogController.setControllerUserView(controllerUserView);
                 dialogController.setAutore(cliente.getNickname());
 
                 Scene scene = new Scene(parent);

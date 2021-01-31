@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
-public class ViewRistoratoreController {
+public class ControllerViewRegistrazione {
 
     @FXML
     private Label labelNomeRistorante;
@@ -80,7 +80,7 @@ public class ViewRistoratoreController {
     private Boolean tipologiaOk = false;
 
 
-    public ViewRistoratoreController () {
+    public ControllerViewRegistrazione() {
 
     }
 

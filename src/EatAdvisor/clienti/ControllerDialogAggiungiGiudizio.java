@@ -7,7 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-public class DialogAggiungiGiudizioController {
+public class ControllerDialogAggiungiGiudizio {
 
     @FXML
     private Slider sliderVoto;
@@ -23,18 +23,18 @@ public class DialogAggiungiGiudizioController {
 
     private int caratteriRimanenti = 256;
     private String autore;
-    private LoggedUserViewController loggedUserViewController;
+    private ControllerUserView controllerUserView;
 
-    public DialogAggiungiGiudizioController () {
+    public ControllerDialogAggiungiGiudizio() {
 
     }
 
     public void initialize () {
         bottoneAggiungiGiudizio.setOnMouseClicked(event -> {
             if (caratteriRimanenti == 256) {
-                loggedUserViewController.setGiudizio(new Giudizio(autore, (int) sliderVoto.getValue(), ""));
+                controllerUserView.setGiudizio(new Giudizio(autore, (int) sliderVoto.getValue(), ""));
             } else {
-                loggedUserViewController.setGiudizio(new Giudizio(autore, (int) sliderVoto.getValue(), textAreaCommento.getText()));
+                controllerUserView.setGiudizio(new Giudizio(autore, (int) sliderVoto.getValue(), textAreaCommento.getText()));
             }
             Node source = (Node)  event.getSource();
             Stage stage  = (Stage) source.getScene().getWindow();
@@ -59,7 +59,7 @@ public class DialogAggiungiGiudizioController {
         this.autore = autore;
     }
 
-    public void setLoggedUserViewController(LoggedUserViewController controller) {
-        loggedUserViewController = controller;
+    public void setControllerUserView(ControllerUserView controller) {
+        controllerUserView = controller;
     }
 }
