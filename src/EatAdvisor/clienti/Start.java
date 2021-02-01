@@ -1,5 +1,6 @@
 package EatAdvisor.clienti;
 
+import EatAdvisor.ThemeManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +11,12 @@ public class Start extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
+        Parent root = loader.load();
+
+        ControllerLoginView controller = loader.getController();
+        controller.setThemeManager(new ThemeManager());
+
         primaryStage.setTitle("EatAdvisor - Clienti");
         primaryStage.setScene(new Scene(root));
         primaryStage.setMinWidth(600);

@@ -1,6 +1,7 @@
 package EatAdvisor.clienti;
 
 import EatAdvisor.EatAdvisor;
+import EatAdvisor.ThemeManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,10 +10,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import javafx.scene.image.ImageView;
+import java.io.File;
 
 public class ControllerLoginView {
 
@@ -43,6 +48,10 @@ public class ControllerLoginView {
     @FXML
     private Text registerText;
 
+    @FXML
+    private ImageView imageView;
+
+    private ThemeManager themeManager;
     private Cliente cliente = null;
 
     public ControllerLoginView() {
@@ -50,7 +59,15 @@ public class ControllerLoginView {
     }
 
     public void initialize() {
-//        loginButton.setOnMouseClicked(event -> login(true));
+
+        File file = new File("res" + File.separator + "moon.png");
+        Image ico = new Image(file.toURI().toString());
+        imageView.setImage(ico);
+
+        imageView.setOnMouseClicked(event -> {
+            // TODO: cambia il tema in scuro e cambia l'icona
+        });
+
         continueButton.setOnMouseClicked(event -> login(false));
 
         nicknameField.setOnKeyReleased(event -> {
@@ -165,5 +182,9 @@ public class ControllerLoginView {
 
     public void setCliente (Cliente c) {
         cliente = c;
+    }
+
+    public void setThemeManager(ThemeManager themeManager) {
+        this.themeManager = themeManager;
     }
 }

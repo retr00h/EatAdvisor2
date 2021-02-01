@@ -302,7 +302,7 @@ public class EatAdvisor {
                         }
                     }
                     if (ok) {
-                        ristoratori.add(r);
+                        ristoratori.add(0, r);
                     }
 
                     scrivi(ristoratori, 2);

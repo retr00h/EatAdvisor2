@@ -205,11 +205,4 @@ public class ControllerViewRegistrazione {
         }
     }
 
-//    private class onKeyReleased<KeyEvent> implements EventHandler<javafx.scene.input.KeyEvent> {
-//        @Override
-//        public void handle(javafx.scene.input.KeyEvent event) {
-//
-//        }
-//    }
-
 }
