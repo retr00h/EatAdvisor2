@@ -10,14 +10,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import javafx.scene.image.ImageView;
-import java.io.File;
 
 public class ControllerLoginView {
 
@@ -59,13 +56,12 @@ public class ControllerLoginView {
     }
 
     public void initialize() {
-
-        File file = new File("res" + File.separator + "moon.png");
-        Image ico = new Image(file.toURI().toString());
-        imageView.setImage(ico);
+        themeManager = ThemeManager.getThemeManager();
+        imageView.setImage(ThemeManager.sunIcon);
 
         imageView.setOnMouseClicked(event -> {
-            // TODO: cambia il tema in scuro e cambia l'icona
+            // TODO: alternare i temi (scuro -> chiaro O charo -> scuro)
+            themeManager.changeTheme(imageView);
         });
 
         continueButton.setOnMouseClicked(event -> login(false));
@@ -117,7 +113,7 @@ public class ControllerLoginView {
 
         confirmPasswordField.setOnKeyReleased(event -> {
             if (passwordField.getText().equals(confirmPasswordField.getText())) {
-                EatAdvisor.alert(confirmPasswordLabel, true);
+                themeManager.alert(confirmPasswordLabel, true);
                 continueButton.setVisible(true);
                 continueButton.setOnMouseClicked(event1 -> {
                     Cliente c = new Cliente(null,null,null,null,null,
@@ -126,7 +122,7 @@ public class ControllerLoginView {
                 });
             } else {
                 continueButton.setVisible(false);
-                EatAdvisor.alert(confirmPasswordLabel, false);
+                themeManager.alert(confirmPasswordLabel, false);
             }
         });
     }
@@ -182,9 +178,5 @@ public class ControllerLoginView {
 
     public void setCliente (Cliente c) {
         cliente = c;
-    }
-
-    public void setThemeManager(ThemeManager themeManager) {
-        this.themeManager = themeManager;
     }
 }

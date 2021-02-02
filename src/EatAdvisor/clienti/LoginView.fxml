@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="anchorPane" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EatAdvisor.clienti.ControllerLoginView">
+<AnchorPane id="anchorPane" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="pane" stylesheets="@../../dark.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EatAdvisor.clienti.ControllerLoginView">
    <children>
-      <Text layoutX="199.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EatAdvisor - Clienti">
+      <Text layoutX="199.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="EatAdvisor - Clienti">
          <font>
             <Font size="24.0" />
          </font>
@@ -20,7 +20,7 @@
       <Label fx:id="confirmPasswordLabel" layoutX="144.0" layoutY="266.0" text="Conferma password" visible="false" />
       <Button fx:id="continueButton" layoutX="260.0" layoutY="344.0" mnemonicParsing="false" text="Continua senza loggarti" AnchorPane.rightAnchor="198.0" />
       <Label fx:id="continueLabel" layoutX="199.0" layoutY="348.0" text="oppure" />
-      <Text fx:id="registerText" fill="RED" layoutX="180.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nickname non trovato.&#10;Se sei un utente registrato,&#10;controlla di aver inserito il nickname corretto.&#10;Se desideri registrarti, completa il form" visible="false" />
+      <Text fx:id="registerText" fill="RED" layoutX="180.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="errorText" text="Nickname non trovato.&#10;Se sei un utente registrato,&#10;controlla di aver inserito il nickname corretto.&#10;Se desideri registrarti, completa il form" visible="false" />
       <Button fx:id="loginButton" disable="true" layoutX="201.0" layoutY="302.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="201.0" text="Login" />
       <ImageView fx:id="imageView" fitHeight="50.0" fitWidth="50.0" layoutY="364.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
    </children>

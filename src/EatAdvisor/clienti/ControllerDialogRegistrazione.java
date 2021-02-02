@@ -1,12 +1,14 @@
 package EatAdvisor.clienti;
 
 import EatAdvisor.EatAdvisor;
+import EatAdvisor.ThemeManager;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.scene.image.ImageView;
 
 public class ControllerDialogRegistrazione {
 
@@ -43,6 +45,8 @@ public class ControllerDialogRegistrazione {
     @FXML
     private Button registerButton;
 
+    @FXML
+    private ImageView imageView;
     private Cliente cliente;
 
     private boolean nomeOkay = false;
@@ -52,29 +56,40 @@ public class ControllerDialogRegistrazione {
     private boolean emailOkay = false;
     private ControllerLoginView controllerLoginView;
 
+    private ThemeManager themeManager;
+
     public ControllerDialogRegistrazione() {
 
     }
 
     public void initialize() {
+        themeManager = ThemeManager.getThemeManager();
+        if (themeManager.isDark()) imageView.setImage(ThemeManager.sunIcon);
+        else imageView.setImage(ThemeManager.moonIcon);
+
+        imageView.setOnMouseClicked(event -> {
+            // TODO: alternare i temi (scuro -> chiaro O charo -> scuro)
+            themeManager.changeTheme(imageView);
+        });
+
         textFieldNome.setOnKeyReleased(event -> {
-            nomeOkay = EatAdvisor.alert(labelNome, EatAdvisor.validate(textFieldNome.getText(), 1));
+            nomeOkay = themeManager.alert(labelNome, EatAdvisor.validate(textFieldNome.getText(), 1));
             checkOkayGlobal();
         });
         textFieldCognome.setOnKeyReleased(event -> {
-            cognomeOkay = EatAdvisor.alert(labelCognome, EatAdvisor.validate(textFieldCognome.getText(), 8));
+            cognomeOkay = themeManager.alert(labelCognome, EatAdvisor.validate(textFieldCognome.getText(), 8));
             checkOkayGlobal();
         });
         textFieldComune.setOnKeyReleased(event -> {
-            comuneOkay = EatAdvisor.alert(labelComune, EatAdvisor.validate(textFieldComune.getText(), 1));
+            comuneOkay = themeManager.alert(labelComune, EatAdvisor.validate(textFieldComune.getText(), 1));
             checkOkayGlobal();
         });
         textFieldProvincia.setOnKeyReleased(event -> {
-            provinciaOkay = EatAdvisor.alert(labelProvincia, EatAdvisor.validate(textFieldProvincia.getText(), 4));
+            provinciaOkay = themeManager.alert(labelProvincia, EatAdvisor.validate(textFieldProvincia.getText(), 4));
             checkOkayGlobal();
         });
         textFieldEmail.setOnKeyReleased(event -> {
-            emailOkay = EatAdvisor.alert(labelEmail, EatAdvisor.validate(textFieldEmail.getText(), 9));
+            emailOkay = themeManager.alert(labelEmail, EatAdvisor.validate(textFieldEmail.getText(), 9));
             checkOkayGlobal();
         });
     }
