@@ -7,10 +7,14 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
 
 public class ControllerDialogRegistrazione {
+
+    @FXML
+    private AnchorPane anchorPane;
 
     @FXML
     private TextField textFieldNome;
@@ -69,7 +73,7 @@ public class ControllerDialogRegistrazione {
 
         imageView.setOnMouseClicked(event -> {
             // TODO: alternare i temi (scuro -> chiaro O charo -> scuro)
-            themeManager.changeTheme(imageView);
+            themeManager.changeTheme(anchorPane, imageView);
         });
 
         textFieldNome.setOnKeyReleased(event -> {

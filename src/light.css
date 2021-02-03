@@ -1,0 +1,27 @@
+.pane {
+    -fx-background-color: #ECEFF1;
+}
+
+.title {
+    -fx-fill: #263238;
+}
+
+.text {
+    -fx-fill: #263238;
+}
+
+.text-field {
+    -fx-background-color: #CFD8DC;
+}
+
+.button {
+    -fx-background-color: #CFD8DC;
+}
+
+.button:armed {
+    -fx-background-color: #607D8B;
+}
+
+.errorText {
+    -fx-fill: #F44336;
+}

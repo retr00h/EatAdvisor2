@@ -59,10 +59,7 @@ public class ControllerLoginView {
         themeManager = ThemeManager.getThemeManager();
         imageView.setImage(ThemeManager.sunIcon);
 
-        imageView.setOnMouseClicked(event -> {
-            // TODO: alternare i temi (scuro -> chiaro O charo -> scuro)
-            themeManager.changeTheme(imageView);
-        });
+        imageView.setOnMouseClicked(event -> themeManager.changeTheme(anchorPane, imageView));
 
         continueButton.setOnMouseClicked(event -> login(false));
 
