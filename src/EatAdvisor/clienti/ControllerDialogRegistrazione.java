@@ -68,12 +68,19 @@ public class ControllerDialogRegistrazione {
 
     public void initialize() {
         themeManager = ThemeManager.getThemeManager();
-        if (themeManager.isDark()) imageView.setImage(ThemeManager.sunIcon);
-        else imageView.setImage(ThemeManager.moonIcon);
+//        themeManager.changeTheme(false, anchorPane, imageView);
+
+        if (themeManager.isDark()) {
+            imageView.setImage(ThemeManager.sunIcon);
+            themeManager.changeTheme(true, anchorPane, imageView);
+        } else {
+            imageView.setImage(ThemeManager.moonIcon);
+            themeManager.changeTheme(true, anchorPane, imageView);
+        }
 
         imageView.setOnMouseClicked(event -> {
             // TODO: alternare i temi (scuro -> chiaro O charo -> scuro)
-            themeManager.changeTheme(anchorPane, imageView);
+            themeManager.changeTheme(false, anchorPane, imageView);
         });
 
         textFieldNome.setOnKeyReleased(event -> {

@@ -57,9 +57,9 @@ public class ControllerLoginView {
 
     public void initialize() {
         themeManager = ThemeManager.getThemeManager();
-        imageView.setImage(ThemeManager.sunIcon);
+        themeManager.changeTheme(true, anchorPane, imageView);
 
-        imageView.setOnMouseClicked(event -> themeManager.changeTheme(anchorPane, imageView));
+        imageView.setOnMouseClicked(event -> themeManager.changeTheme(false, anchorPane, imageView));
 
         continueButton.setOnMouseClicked(event -> login(false));
 
@@ -75,7 +75,6 @@ public class ControllerLoginView {
                         registerText.setVisible(false);
                         confirmPasswordField.setVisible(false);
                         confirmPasswordLabel.setVisible(false);
-//                        loginButton.setDisable(false);
                         login(true);
                     } else {
                         // questo ramo viene eseguito se l'utente NON è registrato
@@ -119,6 +118,7 @@ public class ControllerLoginView {
                 });
             } else {
                 continueButton.setVisible(false);
+                continueButton.setOnMouseClicked(event1 -> login(false));
                 themeManager.alert(confirmPasswordLabel, false);
             }
         });
@@ -156,6 +156,8 @@ public class ControllerLoginView {
             dialogController.setControllerLoginView(this);
             dialogController.setCliente(c);
 
+            boolean dark = themeManager.isDark();
+
             Scene scene = new Scene(parent);
             Stage stage = new Stage();
             stage.setMinWidth(600);
@@ -166,6 +168,8 @@ public class ControllerLoginView {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
+
+            if (dark != themeManager.isDark()) themeManager.changeTheme(true, anchorPane, imageView);
 
             if (cliente != null) EatAdvisor.changeToLoggedView(getClass().getResource("UserView.fxml"), anchorPane, cliente);
         } catch (Exception e) {

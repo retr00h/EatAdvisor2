@@ -45,24 +45,38 @@ public class ThemeManager {
     // TODO: aggiungere qualcosa che carichi un css di default
     //  (basta rimuovere il css assegnato ai FXML e caricarne uno da qui)
 
-    public void changeTheme(Pane pane, ImageView imageView) {
-        if (dark) {
-            dark = false;
-            imageView.setImage(moonIcon);
-            pane.getStylesheets().clear();
-            pane.getStylesheets().add("light.css");
-//            Scene.getStylesheets()
-//                    .add(getClass().getResource(skinFileName).toExternalForm());
-        } else {
-            dark = true;
-            imageView.setImage(sunIcon);
-            pane.getStylesheets().clear();
-            pane.getStylesheets().add("dark.css");
-        }
+    public void changeTheme(boolean ignoreChange, Pane pane, ImageView imageView) {
+        setCss(ignoreChange, pane, imageView);
     }
 
     public boolean isDark() {
         return dark;
+    }
+
+    private void setCss(boolean ignoreChange, Pane pane, ImageView imageView) {
+        if (ignoreChange) {
+            if (dark) {
+                imageView.setImage(sunIcon);
+                pane.getStylesheets().clear();
+                pane.getStylesheets().add("dark.css");
+            } else {
+                imageView.setImage(moonIcon);
+                pane.getStylesheets().clear();
+                pane.getStylesheets().add("light.css");
+            }
+        } else {
+            if (dark) {
+                dark = false;
+                imageView.setImage(moonIcon);
+                pane.getStylesheets().clear();
+                pane.getStylesheets().add("light.css");
+            } else {
+                dark = true;
+                imageView.setImage(sunIcon);
+                pane.getStylesheets().clear();
+                pane.getStylesheets().add("dark.css");
+            }
+        }
     }
 
     public boolean alert(Label l, boolean okay) {
