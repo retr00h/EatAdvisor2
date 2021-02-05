@@ -2,12 +2,18 @@ package EatAdvisor.clienti;
 
 import EatAdvisor.EatAdvisor;
 import EatAdvisor.Giudizio;
+import EatAdvisor.ThemeManager;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class ControllerDialogAggiungiGiudizio {
+
+    @FXML
+    private GridPane gridPane;
 
     @FXML
     private Slider sliderVoto;
@@ -21,6 +27,11 @@ public class ControllerDialogAggiungiGiudizio {
     @FXML
     private Button bottoneAggiungiGiudizio;
 
+    @FXML
+    private ImageView imageView;
+
+    private ThemeManager themeManager;
+
     private int caratteriRimanenti = 256;
     private String autore;
     private ControllerUserView controllerUserView;
@@ -30,6 +41,11 @@ public class ControllerDialogAggiungiGiudizio {
     }
 
     public void initialize () {
+        themeManager = ThemeManager.getThemeManager();
+
+        // TODO: applicare la theme corrente e cambiare theme al click dell'immagine
+        themeManager.changeTheme(true, gridPane, imageView);
+
         bottoneAggiungiGiudizio.setOnMouseClicked(event -> {
             if (caratteriRimanenti == 256) {
                 controllerUserView.setGiudizio(new Giudizio(autore, (int) sliderVoto.getValue(), ""));

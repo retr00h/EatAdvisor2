@@ -1,51 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane minHeight="300.0" minWidth="500.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EatAdvisor.clienti.ControllerDialogAggiungiGiudizio">
+<GridPane fx:id="gridPane" minHeight="300.0" minWidth="500.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EatAdvisor.clienti.ControllerDialogAggiungiGiudizio">
     <children>
-        <VBox alignment="CENTER" layoutX="131.0" layoutY="50.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
-            <children>
-                <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
-                    <children>
-                        <Label alignment="CENTER_RIGHT" text="Voto" />
-                  <Slider fx:id="sliderVoto" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
-                    </children>
-                    <padding>
-                        <Insets right="30.0" />
-                    </padding>
-                </HBox>
-                <HBox alignment="CENTER" prefHeight="150.0" prefWidth="390.0" spacing="10.0">
-                    <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Commento&#10;(facoltativo)" textAlignment="RIGHT" wrappingWidth="111.5078125" />
-                  <TextArea fx:id="textAreaCommento" prefHeight="150.0" prefWidth="287.0" wrapText="true" />
-                  <Label fx:id="labelCaratteriRimanenti" prefHeight="17.0" prefWidth="218.0" text="Caratteri rimanenti: 256" />
-                    </children>
-                    <padding>
-                        <Insets right="30.0" />
-                    </padding>
-                </HBox>
-                <HBox alignment="CENTER_RIGHT">
-                    <children>
-                        <Button fx:id="bottoneAggiungiGiudizio" disable="true" mnemonicParsing="false" prefWidth="110.0" text="Aggiungi giudizio" />
-                    </children>
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                    <padding>
-                        <Insets right="30.0" />
-                    </padding>
-                </HBox>
-            </children>
-        </VBox>
+            <Label alignment="CENTER_RIGHT" text="Voto" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+      <Slider fx:id="sliderVoto" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" maxWidth="200.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Commento&#10;(facoltativo)" textAlignment="RIGHT" wrappingWidth="73.5078125" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+      <TextArea fx:id="textAreaCommento" maxHeight="100.0" maxWidth="236.0" prefHeight="100.0" prefWidth="236.0" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <Label fx:id="labelCaratteriRimanenti" prefHeight="17.0" prefWidth="129.0" text="Caratteri rimanenti: 256" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+            <Button fx:id="bottoneAggiungiGiudizio" disable="true" mnemonicParsing="false" prefWidth="110.0" text="Aggiungi giudizio" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+      <ImageView fx:id="imageView" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
     </children>
    <columnConstraints>
-      <ColumnConstraints percentWidth="100.0" />
+      <ColumnConstraints percentWidth="2.0" />
+      <ColumnConstraints percentWidth="20.0" />
+      <ColumnConstraints percentWidth="2.0" />
+      <ColumnConstraints percentWidth="75.0" />
+      <ColumnConstraints percentWidth="2.0" />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints percentHeight="100.0" />
+      <RowConstraints percentHeight="5.0" />
+      <RowConstraints percentHeight="15.0" />
+      <RowConstraints percentHeight="75.0" />
+      <RowConstraints percentHeight="5.0" />
    </rowConstraints>
 </GridPane>

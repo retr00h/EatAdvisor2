@@ -3,6 +3,7 @@ package EatAdvisor.clienti;
 import EatAdvisor.EatAdvisor;
 import EatAdvisor.ristoratori.Ristoratore;
 import EatAdvisor.Giudizio;
+import EatAdvisor.ThemeManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -12,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -110,6 +112,14 @@ public class ControllerUserView {
     @FXML
     private TableColumn<Giudizio, String> colonnaCommento;
 
+    @FXML
+    private GridPane externalGridPane;
+
+    @FXML
+    private ImageView imageView;
+
+    private ThemeManager themeManager;
+
     private Cliente cliente;
     private ObservableList<Object> ristoratoriFull;
 
@@ -122,6 +132,11 @@ public class ControllerUserView {
     }
 
     public void initialize() {
+        themeManager = ThemeManager.getThemeManager();
+
+        themeManager.changeTheme(true, externalGridPane, imageView);
+        imageView.setOnMouseClicked(event -> themeManager.changeTheme(false, externalGridPane, imageView));
+
         controllerUserView = this;
 
         bottoneCerca.setOnMouseClicked(new HandlerBottoneRicerca());
@@ -423,6 +438,11 @@ public class ControllerUserView {
         alert.setTitle("EatAdvisor - nessun ristorante trovato");
         alert.setHeaderText("Nessun ristorante trovato");
         alert.setContentText("Perfavore, controlla i parametri di ricerca e riprova");
+
+        //TODO: sistemare
+
+        alert.getDialogPane().getStylesheets().clear();
+        alert.getDialogPane().getStylesheets().add("dark.css");
 
         alert.showAndWait();
     }
