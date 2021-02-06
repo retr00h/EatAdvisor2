@@ -57,6 +57,10 @@
     -fx-table-cell-border-color: #222831;
 }
 
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, #293747;
+}
+
 .table-view .column-header-background .label {
     -fx-background-color: #222831;
 }
@@ -65,14 +69,18 @@
     -fx-background-color: #222831;
 }
 
-.table-row-cell:odd{
-    -fx-background-color: -fx-table-cell-border-color, #293747;
-}
-
 .table-row-cell:selected {
     -fx-background-color: #0055AA;
 }
 
 .table-view .placeholder {
+    -fx-background-color: #222831;
+}
+
+.dialog-pane {
+    -fx-background-color: #222831;
+}
+
+.dialog-pane .header-panel {
     -fx-background-color: #222831;
 }

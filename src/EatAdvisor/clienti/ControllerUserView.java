@@ -188,6 +188,9 @@ public class ControllerUserView {
         colonnaCommento.setCellFactory(tc -> {
             TableCell<Giudizio, String> cell = new TableCell<>();
             Text text = new Text();
+
+            text.getStyleClass().add("text");
+
             cell.setGraphic(text);
             cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
             text.wrappingWidthProperty().bind(colonnaCommento.widthProperty());
@@ -443,10 +446,12 @@ public class ControllerUserView {
         alert.setHeaderText("Nessun ristorante trovato");
         alert.setContentText("Perfavore, controlla i parametri di ricerca e riprova");
 
-        //TODO: sistemare
-
         alert.getDialogPane().getStylesheets().clear();
-        alert.getDialogPane().getStylesheets().add("dark.css");
+        if (themeManager.isDark()) {
+            alert.getDialogPane().getStylesheets().add("dark.css");
+        } else {
+            alert.getDialogPane().getStylesheets().add("light.css");
+        }
 
         alert.showAndWait();
     }
