@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:id="gridPane" minHeight="300.0" minWidth="500.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EatAdvisor.clienti.ControllerDialogAggiungiGiudizio">
+<GridPane fx:id="gridPane" minHeight="300.0" minWidth="500.0" styleClass="pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EatAdvisor.clienti.ControllerDialogAggiungiGiudizio">
     <children>
             <Label alignment="CENTER_RIGHT" text="Voto" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
       <Slider fx:id="sliderVoto" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" maxWidth="200.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />

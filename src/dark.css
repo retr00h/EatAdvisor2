@@ -12,6 +12,15 @@
 
 .text-field {
     -fx-background-color: #30475E;
+    -fx-text-fill: #00FF9F;
+}
+
+.text-area {
+    -fx-text-fill: #00FF9F;
+}
+
+.text-area .content {
+    -fx-background-color: #30475E;
 }
 
 .combo-box {
@@ -24,6 +33,11 @@
 
 .combo-box-popup .list-view .list-cell:filled:hover{
     -fx-background-color: #0055AA;
+}
+
+.slider .track {
+    -fx-background-color: #30475E;
+    /*-fx-background-color: #00FF9F;*/
 }
 
 .button {

@@ -25,3 +25,8 @@
 .errorText {
     -fx-fill: #F44336;
 }
+
+.slider .track {
+    -fx-background-color: #D1D1D1;
+    /*-fx-background-color: #00FF9F;*/
+}

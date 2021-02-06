@@ -3,6 +3,8 @@ package EatAdvisor.clienti;
 import EatAdvisor.EatAdvisor;
 import EatAdvisor.Giudizio;
 import EatAdvisor.ThemeManager;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -43,8 +45,9 @@ public class ControllerDialogAggiungiGiudizio {
     public void initialize () {
         themeManager = ThemeManager.getThemeManager();
 
-        // TODO: applicare la theme corrente e cambiare theme al click dell'immagine
         themeManager.changeTheme(true, gridPane, imageView);
+
+        imageView.setOnMouseClicked(event -> themeManager.changeTheme(false, gridPane, imageView));
 
         bottoneAggiungiGiudizio.setOnMouseClicked(event -> {
             if (caratteriRimanenti == 256) {
@@ -52,12 +55,24 @@ public class ControllerDialogAggiungiGiudizio {
             } else {
                 controllerUserView.setGiudizio(new Giudizio(autore, (int) sliderVoto.getValue(), textAreaCommento.getText()));
             }
-            Node source = (Node)  event.getSource();
+            Node source = (Node) event.getSource();
             Stage stage  = (Stage) source.getScene().getWindow();
             stage.close();
         });
 
         sliderVoto.setOnMouseDragged(event -> bottoneAggiungiGiudizio.setDisable(false));
+
+        sliderVoto.valueProperty().addListener((observable, oldValue, newValue) -> {
+            String style;
+            if (themeManager.isDark()) {
+                style = String.format("-fx-background-color: linear-gradient(to right, #00FF9F %d%%, #30475E %d%%);",
+                        newValue.intValue() * 20, newValue.intValue() * 20);
+            } else {
+                style = String.format("-fx-background-color: linear-gradient(to right, #30475E %d%%, #D1D1D1 %d%%);",
+                        newValue.intValue() * 20, newValue.intValue() * 20);
+            }
+            sliderVoto.lookup(".track").setStyle(style);
+        });
 
         textAreaCommento.setTextFormatter(new TextFormatter<String>(change ->
                 change.getControlNewText().length() <= 256 ? change : null));
@@ -66,7 +81,7 @@ public class ControllerDialogAggiungiGiudizio {
             caratteriRimanenti = 256 - textAreaCommento.getLength();
             labelCaratteriRimanenti.setText("Caratteri rimanenti: " + caratteriRimanenti);
 
-            EatAdvisor.alert(labelCaratteriRimanenti, caratteriRimanenti != 0);
+            themeManager.alert(labelCaratteriRimanenti, caratteriRimanenti != 0);
         });
     }
 

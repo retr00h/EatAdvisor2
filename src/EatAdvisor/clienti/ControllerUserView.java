@@ -228,6 +228,8 @@ public class ControllerUserView {
                 dialogController.setControllerUserView(controllerUserView);
                 dialogController.setAutore(cliente.getNickname());
 
+                boolean dark = themeManager.isDark();
+
                 Scene scene = new Scene(parent);
                 Stage stage = new Stage();
                 stage.setResizable(false);
@@ -236,6 +238,8 @@ public class ControllerUserView {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(scene);
                 stage.showAndWait();
+
+                if (dark != themeManager.isDark()) themeManager.changeTheme(true, externalGridPane, imageView);
             } catch (IOException e) {
                 e.printStackTrace();
             }
