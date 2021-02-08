@@ -1,8 +1,11 @@
 package EatAdvisor.ristoratori;
 
 import EatAdvisor.EatAdvisor;
+import EatAdvisor.ThemeManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 public class ControllerViewRegistrazione {
@@ -31,6 +34,9 @@ public class ControllerViewRegistrazione {
     @FXML
     private Label labelUrl;
 
+
+    @FXML
+    private AnchorPane anchorPane;
 
     @FXML
     private TextField textFieldNomeRistorante;
@@ -68,6 +74,9 @@ public class ControllerViewRegistrazione {
     @FXML
     private Text errorText;
 
+    @FXML
+    private ImageView imageView;
+
     private Boolean nomeOk = false;
     private Boolean tipoIndirizzoOk = false;
     private Boolean indirizzoOk = false;
@@ -79,18 +88,26 @@ public class ControllerViewRegistrazione {
     private Boolean urlOk = true;
     private Boolean tipologiaOk = false;
 
+    private ThemeManager thememanager;
+
 
     public ControllerViewRegistrazione() {
 
     }
 
     public void initialize() {
+        thememanager = ThemeManager.getThemeManager();
+        thememanager.changeTheme(true, anchorPane, imageView);
+
+        imageView.setOnMouseClicked(event -> thememanager.changeTheme(false, anchorPane, imageView));
+
+
         textFieldNomeRistorante.setOnKeyReleased(event -> {
             if (EatAdvisor.isRegistrato(textFieldNomeRistorante.getText(), 2)) {
-                EatAdvisor.alert(labelNomeRistorante, false);
+                thememanager.alert(labelNomeRistorante, false);
                 errorText.setVisible(true);
             } else {
-                EatAdvisor.alert(labelNomeRistorante, true);
+                thememanager.alert(labelNomeRistorante, true);
                 errorText.setVisible(false);
                 nomeOk = handle(textFieldNomeRistorante, labelNomeRistorante, 13);
                 checkOkay();
@@ -186,6 +203,14 @@ public class ControllerViewRegistrazione {
         alert.setTitle("Registrazione confermata!");
         alert.setHeaderText("");
         alert.setContentText("Il ristorante è stato registrato con successo!");
+
+        alert.getDialogPane().getStylesheets().clear();
+        if (ThemeManager.getThemeManager().isDark()) {
+            alert.getDialogPane().getStylesheets().add("dark.css");
+        } else {
+            alert.getDialogPane().getStylesheets().add("light.css");
+        }
+
         alert.showAndWait();
     }
 
@@ -197,12 +222,11 @@ public class ControllerViewRegistrazione {
 
     private boolean handle (TextField textField, Label label, int op) {
         if (EatAdvisor.validate(textField.getText(), op)) {
-            EatAdvisor.alert(label, true);
+            ThemeManager.getThemeManager().alert(label, true);
             return true;
         } else {
-            EatAdvisor.alert(label, false);
+            ThemeManager.getThemeManager().alert(label, false);
             return false;
         }
     }
-
 }

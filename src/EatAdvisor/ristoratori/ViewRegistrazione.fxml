@@ -3,12 +3,13 @@
 <?import java.lang.*?>
 <?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EatAdvisor.ristoratori.ControllerViewRegistrazione">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EatAdvisor.ristoratori.ControllerViewRegistrazione">
    <children>
-      <Text layoutX="178.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EatAdvisor - Ristoratori">
+      <Text layoutX="178.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="EatAdvisor - Ristoratori">
          <font>
             <Font size="24.0" />
          </font></Text>
@@ -56,7 +57,8 @@
          </items>
       </ComboBox>
       <Label fx:id="labelTipologia" layoutX="516.0" layoutY="303.0" text="Tipologia" />
-      <Text fx:id="errorText" fill="RED" layoutX="178.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Esiste gia' un ristorante con questo nome" textAlignment="CENTER" visible="false" wrappingWidth="244.19530928134918" />
+      <Text fx:id="errorText" fill="RED" layoutX="178.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="errorText" text="Esiste gia' un ristorante con questo nome" textAlignment="CENTER" visible="false" wrappingWidth="244.19530928134918" />
       <Button fx:id="registerButton" disable="true" layoutX="228.0" layoutY="343.0" mnemonicParsing="false" text="Registra il tuo ristorante" />
+      <ImageView fx:id="imageView" fitHeight="50.0" fitWidth="50.0" layoutX="-24.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
    </children>
 </AnchorPane>
