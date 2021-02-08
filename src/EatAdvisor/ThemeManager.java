@@ -47,23 +47,23 @@ public class ThemeManager {
             if (dark) {
                 imageView.setImage(sunIcon);
                 pane.getStylesheets().clear();
-                pane.getStylesheets().add("dark.css");
+                pane.getStylesheets().add("EatAdvisor/dark.css");
             } else {
                 imageView.setImage(moonIcon);
                 pane.getStylesheets().clear();
-                pane.getStylesheets().add("light.css");
+                pane.getStylesheets().add("EatAdvisor/light.css");
             }
         } else {
             if (dark) {
                 dark = false;
                 imageView.setImage(moonIcon);
                 pane.getStylesheets().clear();
-                pane.getStylesheets().add("light.css");
+                pane.getStylesheets().add("EatAdvisor/light.css");
             } else {
                 dark = true;
                 imageView.setImage(sunIcon);
                 pane.getStylesheets().clear();
-                pane.getStylesheets().add("dark.css");
+                pane.getStylesheets().add("EatAdvisor/dark.css");
             }
         }
     }

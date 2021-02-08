@@ -448,9 +448,9 @@ public class ControllerUserView {
 
         alert.getDialogPane().getStylesheets().clear();
         if (themeManager.isDark()) {
-            alert.getDialogPane().getStylesheets().add("dark.css");
+            alert.getDialogPane().getStylesheets().add("EatAdvisor/dark.css");
         } else {
-            alert.getDialogPane().getStylesheets().add("light.css");
+            alert.getDialogPane().getStylesheets().add("EatAdvisor/light.css");
         }
 
         alert.showAndWait();
