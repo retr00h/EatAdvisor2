@@ -50,6 +50,7 @@ public class ControllerLoginView {
 
     private ThemeManager themeManager;
     private Cliente cliente = null;
+    private boolean debug;
 
     public ControllerLoginView() {
 
@@ -70,7 +71,7 @@ public class ControllerLoginView {
                     // se il nickname è valido, controllo che l'utente sia registrato
                     continueButton.setVisible(false);
                     continueLabel.setVisible(false);
-                    if (EatAdvisor.isRegistrato(nicknameField.getText(), 1)) {
+                    if (EatAdvisor.isRegistrato(nicknameField.getText(), 1, debug)) {
                         // se l'utente è registrato, attendo l'inserimento della password
                         registerText.setVisible(false);
                         confirmPasswordField.setVisible(false);
@@ -131,8 +132,7 @@ public class ControllerLoginView {
                 loginButton.setOnMouseClicked(event1 ->
                         EatAdvisor.changeToLoggedView(getClass().getResource("UserView.fxml"),
                                 anchorPane, EatAdvisor.cercaCliente(
-                                    nicknameField.getText(), passwordField.getText())
-                        )
+                                    nicknameField.getText(), passwordField.getText(), debug), debug)
                 );
             } else {
                 continueButton.setDisable(true);
@@ -140,12 +140,12 @@ public class ControllerLoginView {
 
             }
         } else {
-            EatAdvisor.changeToLoggedView(getClass().getResource("UserView.fxml"), anchorPane, null);
+            EatAdvisor.changeToLoggedView(getClass().getResource("UserView.fxml"), anchorPane, null, debug);
         }
     }
 
     private boolean checkNicknameAndPassword(String nickname, String password) {
-        return EatAdvisor.cercaCliente(nickname, password) != null;
+        return EatAdvisor.cercaCliente(nickname, password, debug) != null;
     }
 
     private void registraCliente(Cliente c) {
@@ -155,6 +155,7 @@ public class ControllerLoginView {
             ControllerDialogRegistrazione dialogController = loader.getController();
             dialogController.setControllerLoginView(this);
             dialogController.setCliente(c);
+            dialogController.setDebug(debug);
 
             boolean dark = themeManager.isDark();
 
@@ -171,7 +172,7 @@ public class ControllerLoginView {
 
             if (dark != themeManager.isDark()) themeManager.changeTheme(true, anchorPane, imageView);
 
-            if (cliente != null) EatAdvisor.changeToLoggedView(getClass().getResource("UserView.fxml"), anchorPane, cliente);
+            if (cliente != null) EatAdvisor.changeToLoggedView(getClass().getResource("UserView.fxml"), anchorPane, cliente, debug);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -179,5 +180,9 @@ public class ControllerLoginView {
 
     public void setCliente (Cliente c) {
         cliente = c;
+    }
+
+    public void setDebug(boolean debug) {
+        this.debug = true;
     }
 }

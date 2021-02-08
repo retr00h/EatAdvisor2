@@ -127,6 +127,8 @@ public class ControllerUserView {
     private Ristoratore ristoratoreSelezionato = null;
     private Giudizio nuovoGiudizio = null;
 
+    private boolean debug;
+
     public ControllerUserView() {
 
     }
@@ -165,7 +167,7 @@ public class ControllerUserView {
             return row ;
         });
 
-        ArrayList<Object> ristoratoriTemp = EatAdvisor.leggi(2);
+        ArrayList<Object> ristoratoriTemp = EatAdvisor.leggi(2, debug);
         if (ristoratoriTemp != null) ristoratoriFull = FXCollections.observableArrayList(ristoratoriTemp);
 
         tabellaRistoratori.setItems(ristoratoriFull);
@@ -221,6 +223,10 @@ public class ControllerUserView {
         mostraDettagliRistorante(true);
     }
 
+    public void setDebug(boolean debug) {
+        this.debug = debug;
+    }
+
     private class HandlerBottoneGiudizio implements EventHandler<MouseEvent> {
         @Override
         public void handle(MouseEvent event) {
@@ -250,7 +256,7 @@ public class ControllerUserView {
             if (nuovoGiudizio != null) {
                 ristoratoreSelezionato.addGiudizio(nuovoGiudizio);
                 nuovoGiudizio = null;
-                EatAdvisor.aggiorna(ristoratoreSelezionato);
+                EatAdvisor.aggiorna(ristoratoreSelezionato, debug);
                 selezionaRistoratore(ristoratoreSelezionato);
             }
         }

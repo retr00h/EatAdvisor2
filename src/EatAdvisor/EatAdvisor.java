@@ -26,11 +26,11 @@ public class EatAdvisor {
     protected static final String PATH_UTENTI = "data" + File.separator + "Utenti.dati";
     protected static final String PATH_RISTORANTI = "data" + File.separator + "EatAdvisor.dati";
 
-    public static boolean isRegistrato(String arg, int op) {
+    public static boolean isRegistrato(String arg, int op, boolean debug) {
         // 1: cliente
         // 2: ristoratore
         if (op == 1) {
-            ArrayList<Object> clienti = leggiDaFile(PATH_UTENTI, 1);
+            ArrayList<Object> clienti = leggiDaFile(PATH_UTENTI, 1, debug);
             if (clienti != null) {
                 for (Object c : clienti) {
                     Cliente cliente = (Cliente) c;
@@ -39,7 +39,7 @@ public class EatAdvisor {
             }
             return false;
         } else if (op == 2) {
-            ArrayList<Object> ristoratori = leggiDaFile(PATH_RISTORANTI, 2);
+            ArrayList<Object> ristoratori = leggiDaFile(PATH_RISTORANTI, 2, debug);
             if (ristoratori != null) {
                 for (Object r : ristoratori) {
                     Ristoratore ristoratore = (Ristoratore) r;
@@ -120,13 +120,14 @@ public class EatAdvisor {
         }
     }
 
-    public static void changeToLoggedView(URL fxml, AnchorPane anchorPane, Cliente c) {
+    public static void changeToLoggedView(URL fxml, AnchorPane anchorPane, Cliente c, boolean debug) {
         try {
             Stage stage = (Stage) anchorPane.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(fxml);
             Parent newRoot = loader.load();
             ControllerUserView controllerUserView = loader.getController();
             controllerUserView.setUser(c);
+            controllerUserView.setDebug(debug);
 
             Scene newScene = new Scene(newRoot);
             stage.setScene(newScene);
@@ -138,17 +139,17 @@ public class EatAdvisor {
         }
     }
 
-    public static ArrayList<Object> leggi (int op) {
+    public static ArrayList<Object> leggi (int op, boolean debug) {
         // 1: cliente
         // 2: ristoratore
         if (op == 1) {
-            return leggiDaFile(PATH_UTENTI, op);
+            return leggiDaFile(PATH_UTENTI, op, debug);
         } else if (op == 2) {
-            return leggiDaFile(PATH_RISTORANTI, op);
+            return leggiDaFile(PATH_RISTORANTI, op, debug);
         } else return null;
     }
 
-    private static ArrayList<Object> leggiDaFile(String path, int op) {
+    private static ArrayList<Object> leggiDaFile(String path, int op, boolean debug) {
         // 1: clienti
         // 2: ristoratori
         File f = new File(path);
@@ -162,9 +163,11 @@ public class EatAdvisor {
                 fileInput.close();
                 return oggetti;
             } catch (IOException | ClassNotFoundException e) {
-                System.out.print("Qualcosa e' andato storto e non e' stato possibile leggere i dati ");
-                if (op == 1) System.out.println(" degli utenti.");
-                else System.out.println(" dei ristoratori.");
+                if (debug) {
+                    System.out.print("Qualcosa e' andato storto e non e' stato possibile leggere i dati ");
+                    if (op == 1) System.out.println(" degli utenti.");
+                    else System.out.println(" dei ristoratori.");
+                }
             }
         }
 
@@ -219,8 +222,8 @@ public class EatAdvisor {
         }
     }
 
-    public static Cliente cercaCliente(String nickname, String password) {
-        ArrayList<Object> clienti = leggiDaFile(PATH_UTENTI, 1);
+    public static Cliente cercaCliente(String nickname, String password, boolean debug) {
+        ArrayList<Object> clienti = leggiDaFile(PATH_UTENTI, 1, debug);
         if (clienti != null){
             for (Object o : clienti) {
                 Cliente clienteRegistrato = (Cliente) o;
@@ -232,7 +235,7 @@ public class EatAdvisor {
         return null;
     }
 
-    public static void registra(Object o, int op) {
+    public static void registra(Object o, int op, boolean debug) {
         // 1: cliente
         // 2: ristoratore
         File directory = new File("data/");
@@ -248,7 +251,7 @@ public class EatAdvisor {
             if (f.exists() && !f.isDirectory()) {
                 try {
                     // lettura arraylist utenti da utenti.dati
-                    ArrayList<Object> clienti = leggiDaFile(PATH_UTENTI, 1);
+                    ArrayList<Object> clienti = leggiDaFile(PATH_UTENTI, 1, debug);
 
                     // se il nickname dell'utente invocante e' gia inserito, stampa un errore e interrompe
                     // l'esecuzione del metodo
@@ -256,7 +259,7 @@ public class EatAdvisor {
                     for (Object clienteRegistrato : clienti) {
                         Cliente cliente = (Cliente) clienteRegistrato;
                         if (c.getNickname().equals(cliente.getNickname())) {
-                            System.out.println("E' gia' presente un ristorante con questo nome a questo indirizzo.\n");
+                            if (debug) System.out.println("E' gia' presente un cliente con questo nickname.\n");
                             ok = false;
                             break;
                         }
@@ -266,9 +269,9 @@ public class EatAdvisor {
                     }
 
                     scrivi(clienti, 1);
-                    System.out.println("Dati inseriti con successo!\n");
+                    if (debug) System.out.println("Dati cliente inseriti con successo!\n");
                 } catch (Exception e) {
-                    System.out.println("Dati non inseriti");
+                    System.out.println("Dati cliente non inseriti.");
                 }
             } else {
                 try {
@@ -276,9 +279,9 @@ public class EatAdvisor {
                     clienti.add(c);
 
                     scriviClienti(clienti);
-                    System.out.println("Dati inseriti con successo!\n");
+                    System.out.println("Dati cliente inseriti con successo!\n");
                 } catch (Exception e) {
-                    System.out.println("Dati non inseriti");
+                    System.out.println("Dati cliente non inseriti.");
                 }
             }
         } else if (op == 2) {
@@ -288,7 +291,7 @@ public class EatAdvisor {
             if (f.exists() && !f.isDirectory()) {
                 try {
                     // lettura arraylist ristoratori da utenti.dati
-                    ArrayList<Object> ristoratori = leggiDaFile(PATH_RISTORANTI, 2);
+                    ArrayList<Object> ristoratori = leggiDaFile(PATH_RISTORANTI, 2, debug);
 
                     // se il nickname dell'utente invocante e' gia inserito, stampa un errore e interrompe
                     // l'esecuzione del metodo
@@ -296,7 +299,7 @@ public class EatAdvisor {
                     for (Object ristoratoreRegistrato : ristoratori) {
                         Ristoratore ristoratore = (Ristoratore) ristoratoreRegistrato;
                         if (r.getNome().equals(ristoratore.getNome())) {
-                            System.out.println("E' gia' presente un ristorante con questo nome a questo indirizzo.\n");
+                            if (debug) System.out.println("E' gia' presente un ristorante con questo nome.\n");
                             ok = false;
                             break;
                         }
@@ -306,9 +309,9 @@ public class EatAdvisor {
                     }
 
                     scrivi(ristoratori, 2);
-                    System.out.println("Dati inseriti con successo!\n");
+                    if (debug) System.out.println("Dati ristorante inseriti con successo!\n");
                 } catch (Exception e) {
-                    System.out.println("Dati non inseriti");
+                    if (debug) System.out.println("Dati ristorante non inseriti");
                 }
             } else {
                 try {
@@ -316,16 +319,16 @@ public class EatAdvisor {
                     ristoratori.add(r);
 
                     scriviRistoratori(ristoratori);
-                    System.out.println("Dati inseriti con successo!\n");
+                    if (debug) System.out.println("Dati ristorante inseriti con successo!\n");
                 } catch (Exception e) {
-                    System.out.println("Dati non inseriti");
+                    if (debug) System.out.println("Dati ristorante non inseriti.");
                 }
             }
         }
     }
 
-    public static void aggiorna(Ristoratore r) {
-        ArrayList<Object> ristoratori = leggi(2);
+    public static void aggiorna(Ristoratore r, boolean debug) {
+        ArrayList<Object> ristoratori = leggi(2, debug);
 
         for (int i = 0; i < ristoratori.size(); i++) {
             Ristoratore oldRistoratore = (Ristoratore) ristoratori.get(i);

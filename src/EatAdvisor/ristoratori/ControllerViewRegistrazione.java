@@ -89,6 +89,7 @@ public class ControllerViewRegistrazione {
     private Boolean tipologiaOk = false;
 
     private ThemeManager thememanager;
+    private boolean debug;
 
 
     public ControllerViewRegistrazione() {
@@ -103,7 +104,7 @@ public class ControllerViewRegistrazione {
 
 
         textFieldNomeRistorante.setOnKeyReleased(event -> {
-            if (EatAdvisor.isRegistrato(textFieldNomeRistorante.getText(), 2)) {
+            if (EatAdvisor.isRegistrato(textFieldNomeRistorante.getText(), 2, debug)) {
                 thememanager.alert(labelNomeRistorante, false);
                 errorText.setVisible(true);
             } else {
@@ -167,7 +168,7 @@ public class ControllerViewRegistrazione {
                     textFieldCivico.getText(), textFieldComune.getText(), textFieldProvincia.getText(),
                     textFieldCap.getText(), textFieldTelefono.getText(), textFieldUrl.getText(),
                     comboBoxTipologia.getValue());
-            EatAdvisor.registra(ristoratore, 2);
+            EatAdvisor.registra(ristoratore, 2, debug);
             tabulaRasa();
         });
     }
@@ -228,5 +229,9 @@ public class ControllerViewRegistrazione {
             ThemeManager.getThemeManager().alert(label, false);
             return false;
         }
+    }
+
+    public void setDebug(boolean debug) {
+        this.debug = debug;
     }
 }

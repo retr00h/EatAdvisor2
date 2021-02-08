@@ -60,6 +60,8 @@ public class ControllerDialogRegistrazione {
     private boolean emailOkay = false;
     private ControllerLoginView controllerLoginView;
 
+    private boolean debug;
+
     private ThemeManager themeManager;
 
     public ControllerDialogRegistrazione() {
@@ -106,7 +108,7 @@ public class ControllerDialogRegistrazione {
                 cliente.setComune(textFieldComune.getText().toLowerCase());
                 cliente.setProvincia(textFieldProvincia.getText().toUpperCase());
                 cliente.setEmail(textFieldEmail.getText().toLowerCase());
-                EatAdvisor.registra(cliente, 1);
+                EatAdvisor.registra(cliente, 1, debug);
 
                 controllerLoginView.setCliente(cliente);
 
@@ -125,5 +127,9 @@ public class ControllerDialogRegistrazione {
 
     public void setControllerLoginView(ControllerLoginView controllerLoginView) {
         this.controllerLoginView = controllerLoginView;
+    }
+
+    public void setDebug(boolean debug) {
+        this.debug = debug;
     }
 }

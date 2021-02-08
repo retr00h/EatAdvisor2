@@ -4,9 +4,8 @@ import java.io.*;
 
 /**
  * @author Fabio Cirelli
- * Classe che permette di creare oggetti Clienti, e di registrarli sul file Utenti.data.
- * Contiene metodi per visualizzare il menu per diverse categorie di utenti (registrati, non registrati),
- * e metodi per aggiungere giudizi al Ristorante selezionato.
+ * Questa classe rappresenta i clienti.
+ * Contiene metodi set/get.
  */
 public class Cliente implements Serializable {
 
@@ -21,13 +20,13 @@ public class Cliente implements Serializable {
     /**
      * Costruttore.
      * Costruisce l'oggetto Clienti specificando
-     * @param nome
-     * @param cognome
-     * @param comune
-     * @param provincia
-     * @param email
-     * @param nickname
-     * @param password
+     * @param nome nome del cliente
+     * @param cognome cognome del cliente
+     * @param comune comune di residenza del cliente
+     * @param provincia provincia di residenza del cliente
+     * @param email email del cliente
+     * @param nickname nickname del cliente
+     * @param password password del cliente
      */
     public Cliente(String nome, String cognome, String comune, String provincia, String email, String nickname, String password) {
         this.nome = nome;
@@ -39,27 +38,48 @@ public class Cliente implements Serializable {
         this.password = password;
     }
 
+    /**
+     * Setter (nome)
+     * @param nome nome da settare
+     */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    /**
+     * Setter (cognome)
+     * @param cognome cognome da settare
+     */
     public void setCognome(String cognome) {
         this.cognome = cognome;
     }
 
+    /**
+     * Setter (comune)
+     * @param comune comune di residenza da settare
+     */
     public void setComune(String comune) {
         this.comune = comune;
     }
 
+    /**
+     * Setter (provincia)
+     * @param provincia provincia di residenza da settare
+     */
     public void setProvincia(String provincia) {
         this.provincia = provincia;
     }
 
+    /**
+     * Setter (email)
+     * @param email email da settare
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
     /**
+     * Getter (nickname)
      * @return nickname dell'utente
      */
     public String getNickname() {
@@ -67,6 +87,7 @@ public class Cliente implements Serializable {
     }
 
     /**
+     * Getter (password)
      * @return password dell'utente
      */
     public String getPassword() {
